@@ -1,0 +1,181 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gold Empires - Ancient Edition</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Uncial+Antiqua&display=swap');
+
+    body {
+      font-family: 'Uncial Antiqua', cursive;
+      background-image: url('https://www.transparenttextures.com/patterns/papyrus.png');
+      background-color: #f2e7c9;
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+      color: #3a2c1a;
+    }
+
+    h1 {
+      background-color: #7a5c30;
+      color: #ffeaa7;
+      padding: 15px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px #3a2c1a;
+      text-shadow: 2px 2px #4a3820;
+    }
+
+    .wallet {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      font-size: 22px;
+      margin: 20px 0;
+    }
+
+    .convert-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    button {
+      background-color: #d4a056;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      font-family: 'Uncial Antiqua', cursive;
+      border-radius: 10px;
+      box-shadow: 2px 2px 5px #3a2c1a;
+      cursor: pointer;
+    }
+
+    .empire-container {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      flex-wrap: wrap;
+    }
+
+    .empire {
+      background-color: rgba(255, 255, 255, 0.85);
+      border-radius: 10px;
+      padding: 15px;
+      width: 280px;
+      box-shadow: 3px 3px 8px #8e6e4f;
+      border: 2px solid #a67c52;
+    }
+
+    .empire img {
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    .invest {
+      margin-top: 10px;
+    }
+
+    .invest button {
+      margin: 5px;
+      padding: 5px 10px;
+    }
+
+    #collectBtn {
+      margin-top: 30px;
+      background-color: #3e2f16;
+    }
+  </style>
+</head>
+<body>
+  <h1>GOLD EMPIRES</h1>
+
+  <div class="wallet">
+    <span>💰 Gold: <strong id="gold">0</strong></span>
+    <span>🪙 Coins: <strong id="coins">1000</strong></span>
+  </div>
+
+  <div class="convert-buttons">
+    <button onclick="convert('goldToCoin')">Convert Gold to Coin</button>
+    <button onclick="convert('coinToGold')">Convert Coin to Gold</button>
+  </div>
+
+  <div class="empire-container">
+    <div class="empire">
+      <h2>Egypt</h2>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Karnak_temple.jpg/320px-Karnak_temple.jpg" alt="Egypt">
+      <p>Earn 10% per month<br>1 month</p>
+      <div class="invest">
+        <button onclick="invest(100, 0.1)">Bronze<br>100 C</button>
+        <button onclick="invest(300, 0.1)">Silver<br>300 C</button>
+        <button onclick="invest(1000, 0.1)">Gold<br>1000 C</button>
+      </div>
+    </div>
+    <div class="empire">
+      <h2>Rome</h2>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Pantheon_-_Rome.jpg/320px-Pantheon_-_Rome.jpg" alt="Rome">
+      <p>Earn 20% per month<br>2 months</p>
+      <div class="invest">
+        <button onclick="invest(150, 0.2)">Bronze<br>150 C</button>
+        <button onclick="invest(450, 0.2)">Silver<br>450 C</button>
+        <button onclick="invest(1200, 0.2)">Gold<br>1200 C</button>
+      </div>
+    </div>
+    <div class="empire">
+      <h2>Persia</h2>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Takht-e_Jamshid.jpg/320px-Takht-e_Jamshid.jpg" alt="Persia">
+      <p>Earn 30% per month<br>3 months</p>
+      <div class="invest">
+        <button onclick="invest(200, 0.3)">Bronze<br>200 C</button>
+        <button onclick="invest(600, 0.3)">Silver<br>600 C</button>
+        <button onclick="invest(1500, 0.3)">Gold<br>1500 C</button>
+      </div>
+    </div>
+  </div>
+
+  <button id="collectBtn" onclick="collectEarnings()">Collect Earnings</button>
+
+  <script>
+    let coins = 1000;
+    let gold = 0;
+
+    function updateUI() {
+      document.getElementById("coins").textContent = coins;
+      document.getElementById("gold").textContent = gold;
+    }
+
+    function invest(amount, rate) {
+      if (coins >= amount) {
+        coins -= amount;
+        gold += Math.floor(amount * rate);
+        updateUI();
+      } else {
+        alert("Not enough coins!");
+      }
+    }
+
+    function convert(direction) {
+      if (direction === "goldToCoin" && gold > 0) {
+        coins += gold;
+        gold = 0;
+      } else if (direction === "coinToGold" && coins > 0) {
+        gold += Math.floor(coins / 2);
+        coins = 0;
+      }
+      updateUI();
+    }
+
+    function collectEarnings() {
+      alert("All gold earnings have been added to your balance!");
+    }
+
+    updateUI();
+  </script>
+</body>
+</html>
