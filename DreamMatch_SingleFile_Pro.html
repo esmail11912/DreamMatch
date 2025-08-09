@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0b1020" />
+  <title>DreamMatch — Single File (Pro)</title>
+  <style>
+    * { box-sizing: border-box; }
+    :root { --bg:#0b1020; --panel:#111735; --line:#1f2a52; --muted:#9aa4bf; --text:#e6e8ef; --primary:#2e44ff; --danger:#ff9aa2; }
+    body { margin:0; font-family: Vazirmatn, system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif; background: var(--bg); color: var(--text); }
+    header { padding: max(12px, env(safe-area-inset-top)) 16px 12px 16px; position:sticky; top:0; background:#0c1226cc; backdrop-filter: blur(8px); border-bottom:1px solid #1e2746; display:flex; align-items:center; gap:10px; justify-content:space-between; z-index:10 }
+    h1 { font-size:20px; margin:0 }
+    .sub { color: var(--muted); font-size:12px }
+    main { padding:16px; max-width: 1100px; margin: 0 auto; }
+    .grid { display:grid; grid-template-columns:1.1fr .9fr; gap:14px }
+    .card { background: var(--panel); border:1px solid var(--line); border-radius:14px; padding:14px }
+    .card h2 { margin:0 0 10px; font-size:16px }
+    label { display:block; font-size:12px; color: var(--muted); margin:8px 0 4px }
+    input, select, textarea { width:100%; border-radius:10px; border:1px solid #293563; background:#0f1533; color:var(--text); padding:10px 12px; outline:none }
+    textarea { min-height:120px; resize:vertical }
+    button { cursor:pointer; border:1px solid #2b3a72; background:#1a2350; color:var(--text); padding:10px 14px; border-radius:12px; font-weight:600 }
+    .primary { background:var(--primary); border-color:var(--primary); color:#fff }
+    .ghost { background:transparent }
+    .danger { color:var(--danger) }
+    .muted { color: var(--muted); font-size:12px }
+    .list { display:grid; gap:10px; max-height: 440px; overflow:auto; padding-right:4px }
+    .item { border:1px solid #223067; background:#0f1533; border-radius:12px; padding:10px }
+    .item h3 { margin:0 0 6px; font-size:14px }
+    .pill { display:inline-block; padding:2px 8px; border-radius:999px; background:#1d2859; border:1px solid #2b3a72; color:#c7d2fe; font-size:11px; margin-left:6px }
+    .sep { height:1px; background:#1e2746; margin:12px 0 }
+    .row { display:grid; grid-template-columns: 1fr 1fr; gap:8px }
+    .row2 { display:flex; gap:8px; align-items:center; flex-wrap:wrap }
+    .empty { border:1px dashed #2b3a72; padding:16px; border-radius:12px; text-align:center; color: var(--muted) }
+    .snack { position:fixed; bottom: max(16px, env(safe-area-inset-bottom)); right:16px; background:#0f1533; border:1px solid #2b3a72; padding:10px 14px; border-radius:12px; color:var(--text); opacity:0; transform: translateY(8px); transition: all .25s ease; pointer-events:none; z-index:20 }
+    .snack.show { opacity:1; transform: translateY(0); }
+    @media (max-width: 900px){ .grid { grid-template-columns: 1fr } }
+  </style>
+  <!-- Google Identity Services (only needed if you use Google Login in cloud mode) -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body>
+<header>
+  <div>
+    <h1>DreamMatch</h1>
+    <div class="sub" id="modeLabel">حالت: لوکال</div>
+  </div>
+  <div class="row2">
+    <input id="baseUrl" type="text" placeholder="آدرس API (مثلاً https://api.example.com)" style="min-width:260px" />
+    <button id="btnSetApi">اتصال به سرور</button>
+    <button id="btnLocal" class="ghost">حالت لوکال</button>
+    <span class="muted" id="authStatus">وارد نشده</span>
+    <button id="btnOpenAuth" class="ghost">ورود/ثبت‌نام</button>
+    <button id="btnLogout" class="ghost" style="display:none">خروج</button>
+  </div>
+</header>
+
+<main>
+  <div class="grid">
+    <section class="card">
+      <h2>ثبت خواب</h2>
+      <form id="dreamForm">
+        <label>عنوان (دلخواه)</label>
+        <input id="title" type="text" placeholder="مثلاً پرواز روی شهر" />
+        <label>متن خواب</label>
+        <textarea id="text" placeholder="هر چی یادت میاد بنویس..."></textarea>
+
+        <div class="row">
+          <div>
+            <label>تاریخ</label>
+            <input id="date" type="date" />
+          </div>
+          <div>
+            <label>حال‌وهوا</label>
+            <select id="mood">
+              <option value="">—</option>
+              <option>آرام</option>
+              <option>شاد</option>
+              <option>عجیب</option>
+              <option>ترسناک</option>
+              <option>غمگین</option>
+              <option>هیجان‌انگیز</option>
+            </select>
+          </div>
+        </div>
+
+        <label>تگ‌ها (با کاما جدا)</label>
+        <input id="tags" type="text" placeholder="پله، دریا، دویدن" />
+
+        <div id="visWrap" style="display:none">
+          <label>نمایش</label>
+          <select id="visibility">
+            <option value="public">عمومی (قابل جستجو برای همه)</option>
+            <option value="private">خصوصی (فقط خودت)</option>
+          </select>
+        </div>
+
+        <div class="row2" style="margin-top:8px">
+          <button type="submit" class="primary" id="btnSave">ذخیره</button>
+          <button type="button" id="btnSearch">جستجوی مشابه</button>
+          <button type="button" id="btnClear" class="ghost">پاک کردن فرم</button>
+          <span class="muted" id="hint"></span>
+        </div>
+      </form>
+
+      <div class="sep"></div>
+      <h2>نتایج جستجو</h2>
+      <div id="similarList" class="list"></div>
+      <div id="similarEmpty" class="empty" style="display:none">فعلاً نتیجه‌ای نیست.</div>
+    </section>
+
+    <section class="card">
+      <h2>پروفایل من</h2>
+      <form id="profileForm">
+        <label>نام</label>
+        <input id="p_name" type="text" placeholder="اسم نمایشی" />
+        <label>Bio</label>
+        <input id="p_bio" type="text" placeholder="یه جمله کوتاه" />
+        <label>Avatar URL</label>
+        <input id="p_avatar" type="text" placeholder="https://..." />
+        <div class="row2" style="margin-top:8px">
+          <button type="submit">ذخیره پروفایل</button>
+          <button type="button" id="btnReloadMe" class="ghost">بازخوانی</button>
+        </div>
+      </form>
+
+      <div class="sep"></div>
+      <h2>خواب‌های من</h2>
+      <div class="row2">
+        <input id="searchMine" type="text" placeholder="فیلتر خواب‌های من..." />
+        <button id="btnReloadMine">بازخوانی</button>
+      </div>
+      <div id="myList" class="list"></div>
+      <div id="myEmpty" class="empty" style="display:none">هنوز خوابی ثبت نکردی.</div>
+
+      <div class="sep"></div>
+      <h2>خواب‌های اخیر (عمومی)</h2>
+      <div class="row2">
+        <input id="searchAll" type="text" placeholder="جستجوی سریع..." />
+        <button id="btnReloadAll">بازخوانی</button>
+      </div>
+      <div id="allList" class="list"></div>
+      <div id="allEmpty" class="empty" style="display:none">چیزی نیست هنوز.</div>
+
+      <div class="sep"></div>
+      <h2>ورود با گوگل</h2>
+      <label>Google Client ID</label>
+      <input id="g_client_id" type="text" placeholder="YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com" />
+      <div class="row2" style="margin-top:8px">
+        <button id="btnSaveGoogle">ذخیره Client ID</button>
+        <button id="btnGoogleLogin" class="ghost">Login with Google</button>
+      </div>
+      <div class="muted" style="margin-top:6px">باید همین Client ID روی سرور هم در متغیر محیطی <code>GOOGLE_CLIENT_ID</code> ست شده باشد.</div>
+    </section>
+  </div>
+</main>
+
+<!-- Auth modal -->
+<div id="authModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,.5); align-items:center; justify-content:center;">
+  <div class="card" style="width:420px; max-width:92vw">
+    <h2>ورود / ثبت‌نام</h2>
+    <label>ایمیل</label>
+    <input id="a_email" type="text" placeholder="you@example.com" />
+    <label>رمز عبور</label>
+    <input id="a_password" type="password" placeholder="••••••••" />
+    <label>نام (برای ثبت‌نام)</label>
+    <input id="a_name" type="text" placeholder="دلخواه" />
+    <div class="row2" style="margin-top:8px">
+      <button id="btnDoLogin" class="primary">ورود</button>
+      <button id="btnDoSignup">ثبت‌نام</button>
+      <button id="btnCloseAuth" class="ghost">بستن</button>
+    </div>
+    <div class="muted" style="margin-top:6px" id="authNote">در حالت سرور، حساب‌ها روی API ذخیره می‌شوند.</div>
+  </div>
+</div>
+
+<div id="snack" class="snack"></div>
+
+<script>
+  // -------- Helpers & Config --------
+  const els = {
+    modeLabel: document.getElementById('modeLabel'),
+    baseUrl: document.getElementById('baseUrl'),
+    btnSetApi: document.getElementById('btnSetApi'),
+    btnLocal: document.getElementById('btnLocal'),
+    authStatus: document.getElementById('authStatus'),
+    btnOpenAuth: document.getElementById('btnOpenAuth'),
+    btnLogout: document.getElementById('btnLogout'),
+    authModal: document.getElementById('authModal'),
+    btnDoLogin: document.getElementById('btnDoLogin'),
+    btnDoSignup: document.getElementById('btnDoSignup'),
+    btnCloseAuth: document.getElementById('btnCloseAuth'),
+    a_email: document.getElementById('a_email'),
+    a_password: document.getElementById('a_password'),
+    a_name: document.getElementById('a_name'),
+    // forms
+    form: document.getElementById('dreamForm'),
+    title: document.getElementById('title'),
+    text: document.getElementById('text'),
+    date: document.getElementById('date'),
+    mood: document.getElementById('mood'),
+    tags: document.getElementById('tags'),
+    visWrap: document.getElementById('visWrap'),
+    visibility: document.getElementById('visibility'),
+    btnSave: document.getElementById('btnSave'),
+    btnSearch: document.getElementById('btnSearch'),
+    btnClear: document.getElementById('btnClear'),
+    hint: document.getElementById('hint'),
+    similarList: document.getElementById('similarList'),
+    similarEmpty: document.getElementById('similarEmpty'),
+    // profile
+    profileForm: document.getElementById('profileForm'),
+    p_name: document.getElementById('p_name'),
+    p_bio: document.getElementById('p_bio'),
+    p_avatar: document.getElementById('p_avatar'),
+    btnReloadMe: document.getElementById('btnReloadMe'),
+    // lists
+    myList: document.getElementById('myList'),
+    myEmpty: document.getElementById('myEmpty'),
+    searchMine: document.getElementById('searchMine'),
+    btnReloadMine: document.getElementById('btnReloadMine'),
+    allList: document.getElementById('allList'),
+    allEmpty: document.getElementById('allEmpty'),
+    searchAll: document.getElementById('searchAll'),
+    btnReloadAll: document.getElementById('btnReloadAll'),
+    // Google
+    g_client_id: document.getElementById('g_client_id'),
+    btnSaveGoogle: document.getElementById('btnSaveGoogle'),
+    btnGoogleLogin: document.getElementById('btnGoogleLogin'),
+    // snack
+    snack: document.getElementById('snack')
+  };
+
+  function snack(msg){
+    els.snack.textContent = msg;
+    els.snack.classList.add('show');
+    setTimeout(()=> els.snack.classList.remove('show'), 2200);
+  }
+
+  const KEY = 'dm_singlefile_pro_v1';
+  const TOKEN = () => localStorage.getItem('dm_token') || '';
+  const BASE_URL = () => localStorage.getItem('dm_base_url') || '';
+  const headers = () => TOKEN() ? { 'Content-Type':'application/json', 'Authorization':'Bearer ' + TOKEN() } : { 'Content-Type':'application/json' };
+
+  function today(){ return new Date().toISOString().slice(0,10); }
+  function esc(s){ return String(s||'').replace(/[&<>\"']/g, c=>({ '&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;' }[c])); }
+  els.date.value = today();
+
+  // Query params support (?api= & ?google=)
+  (function(){
+    try{
+      const params = new URLSearchParams(location.search);
+      const api = params.get('api');
+      const g = params.get('google');
+      if (api) localStorage.setItem('dm_base_url', api.replace(/\\/+$/,''));
+      if (g) localStorage.setItem('dm_google_client_id', g);
+    } catch(e){}
+  })();
+
+  function setModeLabel(){
+    if (BASE_URL()){
+      els.modeLabel.textContent = 'حالت: سرور (آنلاین)';
+      els.visWrap.style.display = '';
+      els.authStatus.textContent = TOKEN() ? 'وارد شده' : 'وارد نشده';
+      els.btnLogout.style.display = TOKEN() ? '' : 'none';
+      document.getElementById('authNote').textContent = 'سرور: از API برای کاربر و داده‌ها استفاده می‌شود.';
+    } else {
+      els.modeLabel.textContent = 'حالت: لوکال (بدون سرور)';
+      els.visWrap.style.display = 'none';
+      els.authStatus.textContent = 'وارد نشده';
+      els.btnLogout.style.display = 'none';
+      document.getElementById('authNote').textContent = 'لوکال: کاربران و داده‌ها فقط در این دستگاه ذخیره می‌شوند.';
+    }
+  }
+  setModeLabel();
+  els.baseUrl.value = BASE_URL();
+
+  // Switch modes
+  els.btnSetApi.addEventListener('click', ()=>{
+    const url = els.baseUrl.value.trim();
+    if (!/^https?:\/\//.test(url)) { alert('آدرس صحیح وارد کن (با http/https)'); return; }
+    localStorage.setItem('dm_base_url', url.replace(/\\/+$/,''));
+    setModeLabel(); loadMe(); loadMine(); loadRecent();
+    snack('به سرور متصل شد');
+  });
+  els.btnLocal.addEventListener('click', ()=>{
+    localStorage.removeItem('dm_base_url');
+    localStorage.removeItem('dm_token');
+    setModeLabel(); loadMe(true); renderMineLocal(); renderAllLocal();
+    snack('حالت لوکال فعال شد');
+  });
+
+  // Auth modal
+  els.btnOpenAuth.addEventListener('click', ()=>{
+    if (!BASE_URL()){ alert('برای ورود، باید به سرور متصل باشی.'); return; }
+    els.authModal.style.display = 'flex';
+  });
+  els.btnCloseAuth.addEventListener('click', ()=> els.authModal.style.display='none');
+  els.btnLogout.addEventListener('click', async ()=>{
+    if (!BASE_URL()) return;
+    try { await fetch(BASE_URL() + '/auth/logout', { method:'POST', headers: headers() }); } catch(e){}
+    localStorage.removeItem('dm_token');
+    setModeLabel(); snack('خارج شدی');
+  });
+
+  els.btnDoSignup.addEventListener('click', async ()=>{
+    if (!BASE_URL()) { alert('در حالت لوکال، ورود سروری نداریم.'); return; }
+    const payload = { email: els.a_email.value.trim(), password: els.a_password.value, name: els.a_name.value.trim() };
+    if (!payload.email || !payload.password){ alert('ایمیل و رمز لازم است'); return; }
+    const res = await fetch(BASE_URL() + '/auth/signup', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload) });
+    const data = await res.json().catch(()=>({}));
+    if (!res.ok){ alert(data.error || 'ثبت‌نام ناموفق'); return; }
+    localStorage.setItem('dm_token', data.token);
+    els.authModal.style.display = 'none'; setModeLabel(); loadMe(); loadMine(); loadRecent();
+    snack('ثبت‌نام موفق');
+  });
+  els.btnDoLogin.addEventListener('click', async ()=>{
+    if (!BASE_URL()) { alert('در حالت لوکال، ورود سروری نداریم.'); return; }
+    const payload = { email: els.a_email.value.trim(), password: els.a_password.value };
+    if (!payload.email || !payload.password){ alert('ایمیل و رمز لازم است'); return; }
+    const res = await fetch(BASE_URL() + '/auth/login', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload) });
+    const data = await res.json().catch(()=>({}));
+    if (!res.ok){ alert(data.error || 'ورود ناموفق'); return; }
+    localStorage.setItem('dm_token', data.token);
+    els.authModal.style.display = 'none'; setModeLabel(); loadMe(); loadMine(); loadRecent();
+    snack('وارد شدی');
+  });
+
+  // Google OAuth
+  els.g_client_id.value = localStorage.getItem('dm_google_client_id') || '';
+  els.btnSaveGoogle.addEventListener('click', ()=>{
+    const id = els.g_client_id.value.trim();
+    if (!id){ alert('Client ID را وارد کن'); return; }
+    localStorage.setItem('dm_google_client_id', id);
+    snack('ذخیره شد. حالا "Login with Google" را بزن.');
+  });
+  els.btnGoogleLogin.addEventListener('click', ()=>{
+    const client_id = localStorage.getItem('dm_google_client_id');
+    if (!client_id){ alert('اول Client ID را ذخیره کن'); return; }
+    if (!BASE_URL()){ alert('برای ورود گوگل، باید به سرور متصل باشی.'); return; }
+    if (!window.google || !google.accounts || !google.accounts.id){ alert('اسکریپت گوگل هنوز لود نشده. چند ثانیه بعد تلاش کن.'); return; }
+    google.accounts.id.initialize({
+      client_id,
+      callback: async (resp) => {
+        const id_token = resp.credential;
+        const res = await fetch(BASE_URL() + '/auth/google', { method:'POST', headers: { 'Content-Type':'application/json' }, body: JSON.stringify({ id_token }) });
+        const data = await res.json();
+        if (!res.ok){ alert(data.error || 'Google login failed'); return; }
+        localStorage.setItem('dm_token', data.token);
+        setModeLabel(); loadMe(); loadMine(); loadRecent();
+        snack('با گوگل وارد شدی');
+      }
+    });
+    google.accounts.id.prompt();
+  });
+
+  // -------- Local DB (for Local mode) --------
+  function loadDB(){
+    try { return JSON.parse(localStorage.getItem(KEY)) || { users:{}, dreams:[], sessions:{} }; }
+    catch(e){ return { users:{}, dreams:[], sessions:{} }; }
+  }
+  function saveDB(db){ localStorage.setItem(KEY, JSON.stringify(db)); }
+
+  // -------- Profile --------
+  async function loadMe(clear=false){
+    if (!BASE_URL()) return;
+    if (clear){ els.p_name.value=''; els.p_bio.value=''; els.p_avatar.value=''; return; }
+    const res = await fetch(BASE_URL() + '/me', { headers: { 'Authorization':'Bearer ' + TOKEN() } }).catch(()=>null);
+    if (!res || !res.ok) return;
+    const me = await res.json();
+    els.p_name.value = me.name || '';
+    els.p_bio.value = me.bio || '';
+    els.p_avatar.value = me.avatar_url || '';
+  }
+  els.profileForm.addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    if (BASE_URL()){
+      if (!TOKEN()){ alert('اول وارد شو'); return; }
+      const payload = { name: els.p_name.value.trim(), bio: els.p_bio.value.trim(), avatar_url: els.p_avatar.value.trim() };
+      const res = await fetch(BASE_URL() + '/me', { method:'PUT', headers: headers(), body: JSON.stringify(payload) });
+      if (!res.ok){ alert('ذخیره پروفایل ناموفق'); return; }
+      snack('پروفایل ذخیره شد');
+    } else {
+      const db = loadDB(); db.profile = { name: els.p_name.value.trim(), bio: els.p_bio.value.trim(), avatar_url: els.p_avatar.value.trim() }; saveDB(db);
+      snack('پروفایل لوکال ذخیره شد');
+    }
+  });
+  document.getElementById('btnReloadMe').addEventListener('click', ()=> BASE_URL() ? loadMe() : ( ()=>{ const db=loadDB(); if(db.profile){ els.p_name.value=db.profile.name||''; els.p_bio.value=db.profile.bio||''; els.p_avatar.value=db.profile.avatar_url||''; } } )() );
+
+  // -------- Dreams: Save --------
+  els.form.addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    const payload = {
+      title: els.title.value.trim(),
+      text: els.text.value.trim(),
+      date: els.date.value,
+      mood: els.mood.value,
+      tags: els.tags.value.trim()
+    };
+    if (!payload.text){ alert('متن خواب را بنویس'); return; }
+
+    if (BASE_URL()){
+      payload.visibility = els.visibility.value;
+      if (!TOKEN()){ alert('برای ذخیره روی سرور، وارد شو'); return; }
+      const res = await fetch(BASE_URL() + '/dreams', { method:'POST', headers: headers(), body: JSON.stringify(payload) }).catch(()=>null);
+      if (!res || !res.ok){ alert('ذخیره روی سرور ناموفق'); return; }
+      els.hint.textContent = 'روی سرور ذخیره شد.';
+      els.form.reset(); els.date.value = today();
+      loadMine(); loadRecent();
+    } else {
+      const db = loadDB();
+      db.dreams.push({ id:'d_'+Math.random().toString(36).slice(2,10), title:payload.title, text:payload.text, date:payload.date, mood:payload.mood, tags:payload.tags, created_at:Date.now() });
+      saveDB(db);
+      els.hint.textContent = 'در همین دستگاه ذخیره شد.';
+      els.form.reset(); els.date.value = today();
+      renderMineLocal(); renderAllLocal();
+    }
+  });
+  document.getElementById('btnClear').addEventListener('click', ()=>{ els.form.reset(); els.date.value=today(); els.text.focus(); });
+
+  // -------- Lists --------
+  function renderListInto(arr, container, emptyEl, q, mine=false){
+    container.innerHTML='';
+    const data = (q? arr.filter(d => (d.title||'').includes(q) || (d.text||'').includes(q) || (d.tags||'').includes(q)) : arr);
+    if (data.length===0){ emptyEl.style.display='block'; return; }
+    emptyEl.style.display='none';
+    data.forEach(d=>{
+      const div = document.createElement('div'); div.className='item';
+      const vis = d.visibility ? `<span class="pill">${d.visibility==='private'?'خصوصی':'عمومی'}</span>`:'';
+      div.innerHTML = `
+        <h3>${esc(d.title)||'بدون عنوان'}</h3>
+        <div class="muted">${esc(d.date||'—')} · ${(d.mood||'')} ${vis}</div>
+        <div class="muted" style="margin-top:6px">${esc(String(d.text||'')).slice(0,180)}${(d.text||'').length>180?'…':''}</div>
+      `;
+      if (mine && BASE_URL()){
+        const btns = document.createElement('div'); btns.className='row2'; btns.style.marginTop='8px';
+        const del = document.createElement('button'); del.textContent='حذف'; del.className='ghost danger';
+        del.addEventListener('click', async ()=>{
+          if (!confirm('حذف شود؟')) return;
+          const res = await fetch(BASE_URL() + '/dreams/' + d.id, { method:'DELETE', headers: { 'Authorization':'Bearer ' + TOKEN() } });
+          if (res.ok){ loadMine(); } else { alert('حذف نشد'); }
+        });
+        btns.appendChild(del); div.appendChild(btns);
+      }
+      container.appendChild(div);
+    });
+  }
+
+  async function loadMine(){
+    if (!BASE_URL() || !TOKEN()){ els.myEmpty.style.display='block'; els.myList.innerHTML=''; return; }
+    const res = await fetch(BASE_URL() + '/dreams?mine=true&limit=100', { headers: { 'Authorization':'Bearer ' + TOKEN() } }).catch(()=>null);
+    if (!res || !res.ok){ els.myEmpty.style.display='block'; els.myList.innerHTML=''; return; }
+    const arr = await res.json();
+    renderListInto(arr, els.myList, els.myEmpty, els.searchMine.value.trim(), true);
+  }
+  document.getElementById('btnReloadMine').addEventListener('click', loadMine);
+  els.searchMine.addEventListener('input', loadMine);
+
+  async function loadRecent(){
+    if (!BASE_URL()){ els.allEmpty.style.display='block'; els.allList.innerHTML=''; return; }
+    const res = await fetch(BASE_URL() + '/dreams?limit=100').catch(()=>null);
+    if (!res || !res.ok){ els.allEmpty.style.display='block'; els.allList.innerHTML=''; return; }
+    const arr = await res.json();
+    renderListInto(arr, els.allList, els.allEmpty, els.searchAll.value.trim());
+  }
+  document.getElementById('btnReloadAll').addEventListener('click', loadRecent);
+  els.searchAll.addEventListener('input', loadRecent);
+
+  function renderMineLocal(){
+    const db = loadDB();
+    const mine = db.dreams.slice().sort((a,b)=> b.created_at - a.created_at);
+    renderListInto(mine, els.myList, els.myEmpty, els.searchMine.value.trim());
+  }
+  function renderAllLocal(){
+    const db = loadDB();
+    const arr = db.dreams.slice().sort((a,b)=> b.created_at - a.created_at);
+    renderListInto(arr, els.allList, els.allEmpty, els.searchAll.value.trim());
+  }
+
+  // -------- Search Similar --------
+  els.btnSearch.addEventListener('click', async ()=>{
+    const q = (els.title.value + ' ' + els.text.value + ' ' + els.tags.value).trim();
+    if (!q){ alert('متن برای جستجو وارد کن'); return; }
+    els.similarList.innerHTML=''; els.similarEmpty.style.display='none';
+
+    if (BASE_URL()){
+      const res = await fetch(BASE_URL() + '/dreams/search?q=' + encodeURIComponent(q), { headers: TOKEN() ? { 'Authorization':'Bearer ' + TOKEN() } : {} }).catch(()=>null);
+      if (!res || !res.ok){ els.similarEmpty.style.display='block'; return; }
+      const items = await res.json();
+      renderSimilar(items.map(it=>({ ref: it.ref, score: it.score })));
+    } else {
+      // Local simple similarity (TF-IDF-lite)
+      const db = loadDB();
+      const docs = db.dreams;
+      if (!docs.length){ els.similarEmpty.style.display='block'; return; }
+      function tokenize(t){ return String(t||'').toLowerCase().replace(/[^آ-یA-Za-z0-9]+/g,' ').trim().split(/\s+/).filter(Boolean); }
+      function tf(tokens){ const m=new Map(); tokens.forEach(w=>m.set(w,(m.get(w)||0)+1)); return m; }
+      function cosineTF(a,b){
+        const keys=new Set([...a.keys(),...b.keys()]); let dot=0,na=0,nb=0;
+        for (const k of keys){ const x=a.get(k)||0; const y=b.get(k)||0; dot+=x*y; na+=x*x; nb+=y*y; }
+        return (na&&nb)? dot/(Math.sqrt(na)*Math.sqrt(nb)) : 0;
+      }
+      const qTf = tf(tokenize(q));
+      const scored = docs.map(d=>({ ref:d, score: cosineTF(qTf, tf(tokenize(d.text+' '+(d.tags||'')))) }))
+                         .sort((a,b)=> b.score-a.score).slice(0,10);
+      renderSimilar(scored);
+    }
+  });
+
+  function renderSimilar(items){
+    els.similarList.innerHTML='';
+    if (!items.length || (items[0].score||0)===0){ els.similarEmpty.style.display='block'; return; }
+    items.forEach(({ref, score})=>{
+      const div = document.createElement('div'); div.className='item';
+      const pct = (score*100).toFixed(1);
+      const vis = ref.visibility ? `<span class="pill">${ref.visibility==='private'?'خصوصی':'عمومی'}</span>`:'';
+      div.innerHTML = `
+        <h3>${esc(ref.title)||'بدون عنوان'}</h3>
+        <div class="muted">${esc(ref.date||'—')} · ${(ref.mood||'')} ${vis}</div>
+        <div class="muted" style="margin-top:6px">${esc(String(ref.text||'')).slice(0,220)}${(ref.text||'').length>220?'…':''}</div>
+        <div style="margin-top:8px">شباهت: <b>${pct}%</b></div>
+      `;
+      els.similarList.appendChild(div);
+    });
+  }
+
+  // init
+  if (BASE_URL()){ loadMe(); loadMine(); loadRecent(); } else { renderMineLocal(); renderAllLocal(); }
+</script>
+</body>
+</html>
