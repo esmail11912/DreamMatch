@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="fa" dir="rtl">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
@@ -35,6 +35,7 @@
     .snack { position:fixed; bottom: max(16px, env(safe-area-inset-bottom)); right:16px; background:#0f1533; border:1px solid #2b3a72; padding:10px 14px; border-radius:12px; color:var(--text); opacity:0; transform: translateY(8px); transition: all .25s ease; pointer-events:none; z-index:20 }
     .snack.show { opacity:1; transform: translateY(0); }
     @media (max-width: 900px){ .grid { grid-template-columns: 1fr } }
+    a { color: #9aa4bf }
   </style>
 </head>
 <body>
@@ -42,37 +43,37 @@
   <div>
     <h1>DreamMatch</h1>
     <div class="row2" style="margin-top:6px">
-      <label for="lang" class="muted" id="label_lang">Language</label>
+      <label for="lang" class="muted" id="label_lang">زبان</label>
       <select id="lang">
-        <option value="en">English</option>
         <option value="fa">فارسی</option>
+        <option value="en">English</option>
       </select>
     </div>
   </div>
   <div class="row2">
-    <span class="muted" id="authStatus">Signed out</span>
-    <button id="btnOpenAuth" class="ghost">Sign in / Sign up</button>
-    <button id="btnLogout" class="ghost" style="display:none">Sign out</button>
+    <span class="muted" id="authStatus">وارد نشده</span>
+    <button id="btnOpenAuth" class="ghost">ورود/ثبت‌نام</button>
+    <button id="btnLogout" class="ghost" style="display:none">خروج</button>
   </div>
 </header>
 
 <main>
   <div class="grid">
     <section class="card">
-      <h2 id="h_add">Add a Dream</h2>
+      <h2 id="h_add">ثبت خواب</h2>
       <form id="dreamForm">
-        <label id="lab_title">Title (optional)</label>
-        <input id="title" type="text" placeholder="e.g., Flying over a neon city" />
-        <label id="lab_text">Dream text</label>
-        <textarea id="text" placeholder="Write what you remember..."></textarea>
+        <label id="lab_title">عنوان (دلخواه)</label>
+        <input id="title" type="text" placeholder="مثلاً پرواز روی شهر" />
+        <label id="lab_text">متن خواب</label>
+        <textarea id="text" placeholder="هر چی یادت میاد بنویس..."></textarea>
 
         <div class="row">
           <div>
-            <label id="lab_date">Date</label>
+            <label id="lab_date">تاریخ</label>
             <input id="date" type="date" />
           </div>
           <div>
-            <label id="lab_mood">Mood</label>
+            <label id="lab_mood">حال‌وهوا</label>
             <select id="mood">
               <option value="">—</option>
               <option data-en="Calm" data-fa="آرام">Calm</option>
@@ -85,81 +86,136 @@
           </div>
         </div>
 
-        <label id="lab_tags">Tags (comma separated)</label>
+        <label id="lab_tags">تگ‌ها (با کاما جدا)</label>
         <input id="tags" type="text" placeholder="stairs, ocean, running" />
 
-        <label id="lab_vis">Visibility</label>
+        <label id="lab_vis">نمایش</label>
         <select id="visibility">
-          <option value="public" data-en="Public (searchable by everyone)" data-fa="عمومی (قابل جستجو برای همه)">Public (searchable by everyone)</option>
-          <option value="private" data-en="Private (only you)" data-fa="خصوصی (فقط خودت)">Private (only you)</option>
+          <option value="public" data-en="Public (searchable by everyone)" data-fa="عمومی (قابل جستجو برای همه)">عمومی (قابل جستجو برای همه)</option>
+          <option value="private" data-en="Private (only you)" data-fa="خصوصی (فقط خودت)">خصوصی (فقط خودت)</option>
         </select>
 
         <div class="row2" style="margin-top:8px">
-          <button type="submit" class="primary" id="btnSave">Save</button>
-          <button type="button" id="btnSearch">Find Similar (Global)</button>
-          <button type="button" id="btnClear" class="ghost">Clear</button>
+          <button type="submit" class="primary" id="btnSave">ذخیره</button>
+          <button type="button" id="btnSearch">جستجوی مشابه (جهانی)</button>
+          <button type="button" id="btnClear" class="ghost">پاک کردن فرم</button>
           <span class="muted" id="hint"></span>
         </div>
       </form>
 
       <div class="sep"></div>
-      <h2 id="h_results">Search Results</h2>
+      <h2 id="h_results">نتایج جستجو</h2>
       <div id="similarList" class="list"></div>
-      <div id="similarEmpty" class="empty" style="display:none">No results yet.</div>
+      <div id="similarEmpty" class="empty" style="display:none">فعلاً نتیجه‌ای نیست.</div>
     </section>
 
     <section class="card">
-      <h2 id="h_profile">My Profile</h2>
+      <h2 id="h_profile">پروفایل من</h2>
       <form id="profileForm">
-        <label id="lab_name">Name</label>
-        <input id="p_name" type="text" placeholder="Your display name" />
+        <label id="lab_name">نام</label>
+        <input id="p_name" type="text" placeholder="اسم نمایشی" />
         <label id="lab_bio">Bio</label>
-        <input id="p_bio" type="text" placeholder="A short line about you" />
+        <input id="p_bio" type="text" placeholder="یه جمله کوتاه" />
         <label id="lab_avatar">Avatar URL</label>
         <input id="p_avatar" type="text" placeholder="https://..." />
         <div class="row2" style="margin-top:8px">
-          <button type="submit" id="btnSaveProfile">Save Profile</button>
-          <button type="button" id="btnReloadMe" class="ghost">Reload</button>
+          <button type="submit" id="btnSaveProfile">ذخیره پروفایل</button>
+          <button type="button" id="btnReloadMe" class="ghost">بازخوانی</button>
         </div>
       </form>
 
       <div class="sep"></div>
-      <h2 id="h_mine">My Dreams</h2>
+      <h2 id="h_mine">خواب‌های من</h2>
       <div class="row2">
-        <input id="searchMine" type="text" placeholder="Filter my dreams..." />
-        <button id="btnReloadMine">Reload</button>
+        <input id="searchMine" type="text" placeholder="فیلتر خواب‌های من..." />
+        <button id="btnReloadMine">بازخوانی</button>
       </div>
       <div id="myList" class="list"></div>
-      <div id="myEmpty" class="empty" style="display:none">No dreams yet.</div>
+      <div id="myEmpty" class="empty" style="display:none">هنوز خوابی ثبت نکردی.</div>
 
       <div class="sep"></div>
-      <h2 id="h_public">Recent Dreams (Public)</h2>
+      <h2 id="h_public">خواب‌های اخیر (عمومی)</h2>
       <div class="row2">
-        <input id="searchAll" type="text" placeholder="Quick filter..." />
-        <button id="btnReloadAll">Reload</button>
+        <input id="searchAll" type="text" placeholder="جستجوی سریع..." />
+        <button id="btnReloadAll">بازخوانی</button>
       </div>
       <div id="allList" class="list"></div>
-      <div id="allEmpty" class="empty" style="display:none">No dreams yet.</div>
+      <div id="allEmpty" class="empty" style="display:none">چیزی نیست هنوز.</div>
     </section>
   </div>
+
+  <footer class="muted" style="text-align:center; padding:16px">
+    <a href="#" id="openPrivacy">Privacy</a> ·
+    <a href="#" id="openTerms">Terms</a>
+  </footer>
 </main>
 
 <!-- Auth modal -->
 <div id="authModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,.5); align-items:center; justify-content:center;">
   <div class="card" style="width:420px; max-width:92vw">
-    <h2 id="h_auth">Sign in / Sign up</h2>
-    <label id="lab_email">Email</label>
+    <h2 id="h_auth">ورود / ثبت‌نام</h2>
+    <label id="lab_email">ایمیل</label>
     <input id="a_email" type="text" placeholder="you@example.com" />
-    <label id="lab_pass">Password</label>
+    <label id="lab_pass">رمز عبور</label>
     <input id="a_password" type="password" placeholder="••••••••" />
-    <label id="lab_name_signup">Name (for signup)</label>
-    <input id="a_name" type="text" placeholder="Optional" />
+    <label id="lab_name_signup">نام (برای ثبت‌نام)</label>
+    <input id="a_name" type="text" placeholder="دلخواه" />
     <div class="row2" style="margin-top:8px">
-      <button id="btnDoLogin" class="primary">Sign in</button>
-      <button id="btnDoSignup">Sign up</button>
-      <button id="btnCloseAuth" class="ghost">Close</button>
+      <button id="btnDoLogin" class="primary">ورود</button>
+      <button id="btnDoSignup">ثبت‌نام</button>
+      <button id="btnCloseAuth" class="ghost">بستن</button>
     </div>
-    <div class="muted" style="margin-top:6px" id="authNote">Accounts are stored on the server.</div>
+    <div class="muted" style="margin-top:8px">
+      <a href="#" id="linkForgot">فراموشی رمز؟</a>
+    </div>
+    <div class="muted" style="margin-top:6px" id="authNote">حساب‌ها روی سرور ذخیره می‌شوند.</div>
+  </div>
+</div>
+
+<!-- Reset Step 1: request code -->
+<div id="resetAskModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,.5); align-items:center; justify-content:center;">
+  <div class="card" style="width:420px; max-width:92vw">
+    <h2>بازیابی رمز</h2>
+    <label>ایمیل</label>
+    <input id="r_email" type="text" placeholder="you@example.com" />
+    <div class="row2" style="margin-top:8px">
+      <button id="btnSendCode" class="primary">ارسال کد</button>
+      <button id="btnCloseResetAsk" class="ghost">بستن</button>
+    </div>
+    <div class="muted" id="resetInfo" style="margin-top:6px"></div>
+  </div>
+</div>
+
+<!-- Reset Step 2: confirm code -->
+<div id="resetConfirmModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,.5); align-items:center; justify-content:center;">
+  <div class="card" style="width:420px; max-width:92vw">
+    <h2>کد را وارد کنید</h2>
+    <label>کد</label>
+    <input id="r_code" type="text" placeholder="کد ۶ رقمی" />
+    <label>رمز جدید</label>
+    <input id="r_newpass" type="password" placeholder="••••••••" />
+    <div class="row2" style="margin-top:8px">
+      <button id="btnConfirmReset" class="primary">تأیید</button>
+      <button id="btnCloseResetConfirm" class="ghost">بستن</button>
+    </div>
+  </div>
+</div>
+
+<!-- Privacy / Terms modal -->
+<div id="legalModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,.5); align-items:center; justify-content:center;">
+  <div class="card" style="width:720px; max-width:94vw; max-height:86vh; overflow:auto">
+    <h2 id="legalTitle">Privacy Policy & Terms</h2>
+    <div id="legalBody" class="muted" style="line-height:1.6">
+      <h3>Privacy Policy</h3>
+      <p>We store account data (email, hashed password) and your dreams. Private dreams are only visible to you. You can delete your dreams at any time.</p>
+      <p>We perform text similarity on server. We don’t sell your data.</p>
+      <h3>Terms of Use</h3>
+      <p>Don’t upload illegal or harmful content. We may remove content that violates these terms.</p>
+      <p>By using DreamMatch you agree to these terms.</p>
+    </div>
+    <div class="row2" style="margin-top:8px">
+      <button id="btnCloseLegal" class="primary">بستن</button>
+    </div>
   </div>
 </div>
 
@@ -170,66 +226,8 @@
   const TOKEN = () => localStorage.getItem('dm_token') || '';
   const headers = () => TOKEN() ? { 'Content-Type':'application/json', 'Authorization':'Bearer ' + TOKEN() } : { 'Content-Type':'application/json' };
 
+  // چندزبانه‌ی ساده (fa/en)
   const I18N = {
-    en: {
-      langLabel: "Language",
-      signedOut: "Signed out",
-      openAuth: "Sign in / Sign up",
-      signOut: "Sign out",
-      add: "Add a Dream",
-      title: "Title (optional)",
-      titlePh: "e.g., Flying over a neon city",
-      text: "Dream text",
-      textPh: "Write what you remember...",
-      date: "Date",
-      mood: "Mood",
-      tags: "Tags (comma separated)",
-      vis: "Visibility",
-      visPublic: "Public (searchable by everyone)",
-      visPrivate: "Private (only you)",
-      save: "Save",
-      findSim: "Find Similar (Global)",
-      clear: "Clear",
-      results: "Search Results",
-      noResults: "No results yet.",
-      profile: "My Profile",
-      name: "Name",
-      namePh: "Your display name",
-      bio: "Bio",
-      bioPh: "A short line about you",
-      avatar: "Avatar URL",
-      saveProfile: "Save Profile",
-      reload: "Reload",
-      mine: "My Dreams",
-      filterMinePh: "Filter my dreams...",
-      noMine: "No dreams yet.",
-      pub: "Recent Dreams (Public)",
-      filterAllPh: "Quick filter...",
-      noAll: "No dreams yet.",
-      authTitle: "Sign in / Sign up",
-      email: "Email",
-      pass: "Password",
-      nameSignup: "Name (for signup)",
-      nameSignupPh: "Optional",
-      doLogin: "Sign in",
-      doSignup: "Sign up",
-      close: "Close",
-      accountsNote: "Accounts are stored on the server.",
-      alerts: {
-        needEmailPass: "Email and password are required",
-        needText: "Please write the dream text",
-        needLogin: "Please sign in first",
-        savedServer: "Saved to server",
-        signedIn: "Signed in",
-        signedOut: "Signed out",
-        signedUp: "Signed up",
-        profileSaved: "Profile saved"
-      },
-      visBadgePublic: "Public",
-      visBadgePrivate: "Private",
-      untitled: "Untitled dream",
-      similarity: "Similarity"
-    },
     fa: {
       langLabel: "زبان",
       signedOut: "وارد نشده",
@@ -288,6 +286,65 @@
       visBadgePrivate: "خصوصی",
       untitled: "بدون عنوان",
       similarity: "شباهت"
+    },
+    en: {
+      langLabel: "Language",
+      signedOut: "Signed out",
+      openAuth: "Sign in / Sign up",
+      signOut: "Sign out",
+      add: "Add a Dream",
+      title: "Title (optional)",
+      titlePh: "e.g., Flying over a neon city",
+      text: "Dream text",
+      textPh: "Write what you remember...",
+      date: "Date",
+      mood: "Mood",
+      tags: "Tags (comma separated)",
+      vis: "Visibility",
+      visPublic: "Public (searchable by everyone)",
+      visPrivate: "Private (only you)",
+      save: "Save",
+      findSim: "Find Similar (Global)",
+      clear: "Clear",
+      results: "Search Results",
+      noResults: "No results yet.",
+      profile: "My Profile",
+      name: "Name",
+      namePh: "Your display name",
+      bio: "Bio",
+      bioPh: "A short line about you",
+      avatar: "Avatar URL",
+      saveProfile: "Save Profile",
+      reload: "Reload",
+      mine: "My Dreams",
+      filterMinePh: "Filter my dreams...",
+      noMine: "No dreams yet.",
+      pub: "Recent Dreams (Public)",
+      filterAllPh: "Quick filter...",
+      noAll: "No results yet.",
+      authTitle: "Sign in / Sign up",
+      email: "Email",
+      pass: "Password",
+      nameSignup: "Name (for signup)",
+      nameSignupPh: "Optional",
+      doLogin: "Sign in",
+      doSignup: "Sign up",
+      close: "Close",
+      accountsNote: "Accounts are stored on the server.",
+      alerts: {
+        needEmailPass: "Email and password are required",
+        needText: "Please write the dream text",
+        needLogin: "Please sign in first",
+        savedServer: "Saved to server",
+        signedIn: "Signed in",
+        signedOut: "Signed out",
+        signedUp: "Signed up",
+        profileSaved: "Profile saved"
+      },
+      visBadgePublic: "Public",
+      visBadgePrivate: "Private",
+      untitled: "Untitled dream",
+      similarity: "Similarity"
     }
   };
 
@@ -359,20 +416,20 @@
   };
 
   function setDir(lang){ document.documentElement.dir = (lang==='fa') ? 'rtl' : 'ltr'; document.documentElement.lang = lang; }
-  function t(lang){ return I18N[lang] || I18N.en; }
+  function t(lang){ return I18N[lang] || I18N.fa; }
   function applyLang(lang){
     const i = t(lang);
     els.label_lang.textContent = i.langLabel;
     els.authStatus.textContent = TOKEN() ? (lang==='fa' ? 'وارد شده' : 'Signed in') : i.signedOut;
     els.btnOpenAuth.textContent = i.openAuth;
-    els.btnLogout.textContent = i.signOut;
+    els.btnLogout.textContent = (lang==='fa'?'خروج':'Sign out');
 
     els.h_add.textContent = i.add;
     els.lab_title.textContent = i.title; els.title.placeholder = i.titlePh;
     els.lab_text.textContent = i.text; els.text.placeholder = i.textPh;
     els.lab_date.textContent = i.date;
     els.lab_mood.textContent = i.mood;
-    els.lab_tags.textContent = i.tags; els.tags.placeholder = i.tagsPh || i.tags.replace('(comma separated)','');
+    els.lab_tags.textContent = i.tags; els.tags.placeholder = (i.tagsPh || i.tags.replace('(comma separated)',''));
     els.lab_vis.textContent = i.vis;
 
     Array.from(els.mood.options).forEach(opt=>{ if (opt.dataset && opt.dataset[lang]) opt.textContent = opt.dataset[lang]; });
@@ -416,7 +473,7 @@
   }
 
   const LANG_KEY = 'dm_lang';
-  els.lang.value = localStorage.getItem(LANG_KEY) || 'en';
+  els.lang.value = localStorage.getItem(LANG_KEY) || 'fa';
   applyLang(els.lang.value);
   els.lang.addEventListener('change', ()=>{ localStorage.setItem(LANG_KEY, els.lang.value); applyLang(els.lang.value); });
 
@@ -425,34 +482,76 @@
   function esc(s){ return String(s||'').replace(/[&<>"']/g, c=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c])); }
   document.getElementById('date').value = today();
 
+  // سلامت سرور
+  async function checkServer() {
+    try {
+      const res = await fetch(BASE_URL + '/health', { cache: 'no-store' });
+      if (!res.ok) throw new Error('bad status');
+      const j = await res.json();
+      return !!j.ok;
+    } catch (e) {
+      return false;
+    }
+  }
+  function showNetErr(msg){
+    alert(msg || (els.lang.value==='fa' ? 'اتصال به سرور برقرار نیست. بعداً دوباره تلاش کن.' : 'Server is not reachable. Please try again later.'));
+  }
+
   // Auth
   document.getElementById('btnOpenAuth').addEventListener('click', ()=> els.authModal.style.display = 'flex');
   document.getElementById('btnCloseAuth').addEventListener('click', ()=> els.authModal.style.display='none');
-  document.getElementById('btnLogout').addEventListener('click', async ()=>{ try { await fetch(BASE_URL + '/auth/logout', { method:'POST', headers: headers() }); } catch(e){} localStorage.removeItem('dm_token'); els.authStatus.textContent = t(els.lang.value).signedOut; document.getElementById('btnLogout').style.display='none'; snack(t(els.lang.value).alerts.signedOut); });
+  document.getElementById('btnLogout').addEventListener('click', async ()=>{
+    try { await fetch(BASE_URL + '/auth/logout', { method:'POST', headers: headers() }); } catch(e){}
+    localStorage.removeItem('dm_token');
+    els.authStatus.textContent = t(els.lang.value).signedOut;
+    document.getElementById('btnLogout').style.display='none';
+    snack(t(els.lang.value).alerts.signedOut);
+  });
+
   document.getElementById('btnDoSignup').addEventListener('click', async ()=>{
     const i = t(els.lang.value);
     const payload = { email: document.getElementById('a_email').value.trim(), password: document.getElementById('a_password').value, name: document.getElementById('a_name').value.trim() };
     if (!payload.email || !payload.password){ alert(i.alerts.needEmailPass); return; }
+    const alive = await checkServer(); if (!alive){ showNetErr(); return; }
     const res = await fetch(BASE_URL + '/auth/signup', { method:'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(payload) });
     const data = await res.json().catch(()=>({}));
     if (!res.ok){ alert(data.error || 'Signup failed'); return; }
     localStorage.setItem('dm_token', data.token);
-    els.authModal.style.display='none'; els.authStatus.textContent = els.lang.value==='fa' ? 'وارد شده' : 'Signed in'; document.getElementById('btnLogout').style.display=''; snack(i.alerts.signedUp);
+    els.authModal.style.display='none'; els.authStatus.textContent = els.lang.value==='fa' ? 'وارد شده' : 'Signed in'; document.getElementById('btnLogout').style.display='';
+    snack(i.alerts.signedUp);
   });
+
   document.getElementById('btnDoLogin').addEventListener('click', async ()=>{
     const i = t(els.lang.value);
     const payload = { email: document.getElementById('a_email').value.trim(), password: document.getElementById('a_password').value };
     if (!payload.email || !payload.password){ alert(i.alerts.needEmailPass); return; }
+    const alive = await checkServer(); if (!alive){ showNetErr(); return; }
     const res = await fetch(BASE_URL + '/auth/login', { method:'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(payload) });
     const data = await res.json().catch(()=>({}));
     if (!res.ok){ alert(data.error || 'Login failed'); return; }
     localStorage.setItem('dm_token', data.token);
-    els.authModal.style.display='none'; els.authStatus.textContent = els.lang.value==='fa' ? 'وارد شده' : 'Signed in'; document.getElementById('btnLogout').style.display=''; snack(i.alerts.signedIn);
+    els.authModal.style.display='none'; els.authStatus.textContent = els.lang.value==='fa' ? 'وارد شده' : 'Signed in'; document.getElementById('btnLogout').style.display='';
+    snack(i.alerts.signedIn);
   });
 
   // Profile
-  async function loadMe(clear=false){ if (clear){ els.p_name.value=''; els.p_bio.value=''; els.p_avatar.value=''; return; } if (!TOKEN()) return; const res = await fetch(BASE_URL + '/me', { headers: { 'Authorization':'Bearer ' + TOKEN() } }).catch(()=>null); if (!res || !res.ok) return; const me = await res.json(); els.p_name.value = me.name || ''; els.p_bio.value = me.bio || ''; els.p_avatar.value = me.avatar_url || ''; }
-  document.getElementById('profileForm').addEventListener('submit', async (e)=>{ e.preventDefault(); const i = t(els.lang.value); if (!TOKEN()){ alert(i.alerts.needLogin); return; } const payload = { name: els.p_name.value.trim(), bio: els.p_bio.value.trim(), avatar_url: els.p_avatar.value.trim() }; const res = await fetch(BASE_URL + '/me', { method:'PUT', headers: headers(), body: JSON.stringify(payload) }); if (!res.ok){ alert('Could not save profile'); return; } snack(i.alerts.profileSaved); });
+  async function loadMe(clear=false){
+    if (clear){ els.p_name.value=''; els.p_bio.value=''; els.p_avatar.value=''; return; }
+    if (!TOKEN()) return;
+    const res = await fetch(BASE_URL + '/me', { headers: { 'Authorization':'Bearer ' + TOKEN() } }).catch(()=>null);
+    if (!res || !res.ok) return;
+    const me = await res.json();
+    els.p_name.value = me.name || ''; els.p_bio.value = me.bio || ''; els.p_avatar.value = me.avatar_url || '';
+  }
+  document.getElementById('profileForm').addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    const i = t(els.lang.value);
+    if (!TOKEN()){ alert(i.alerts.needLogin); return; }
+    const payload = { name: els.p_name.value.trim(), bio: els.p_bio.value.trim(), avatar_url: els.p_avatar.value.trim() };
+    const res = await fetch(BASE_URL + '/me', { method:'PUT', headers: headers(), body: JSON.stringify(payload) });
+    if (!res.ok){ alert('Could not save profile'); return; }
+    snack(i.alerts.profileSaved);
+  });
   document.getElementById('btnReloadMe').addEventListener('click', ()=> loadMe());
 
   // Save Dream
@@ -501,11 +600,20 @@
     });
   }
 
-  async function loadMine(){ if (!TOKEN()){ els.myEmpty.style.display='block'; els.myList.innerHTML=''; return; } const res = await fetch(BASE_URL + '/dreams?mine=true&limit=100', { headers: { 'Authorization':'Bearer ' + TOKEN() } }).catch(()=>null); if (!res || !res.ok){ els.myEmpty.style.display='block'; els.myList.innerHTML=''; return; } const arr = await res.json(); renderListInto(arr, els.myList, els.myEmpty, els.searchMine.value.trim(), true); }
+  async function loadMine(){
+    if (!TOKEN()){ els.myEmpty.style.display='block'; els.myList.innerHTML=''; return; }
+    const res = await fetch(BASE_URL + '/dreams?mine=true&limit=100', { headers: { 'Authorization':'Bearer ' + TOKEN() } }).catch(()=>null);
+    if (!res || !res.ok){ els.myEmpty.style.display='block'; els.myList.innerHTML=''; return; }
+    const arr = await res.json(); renderListInto(arr, els.myList, els.myEmpty, els.searchMine.value.trim(), true);
+  }
   document.getElementById('btnReloadMine').addEventListener('click', loadMine);
   document.getElementById('searchMine').addEventListener('input', loadMine);
 
-  async function loadRecent(){ const res = await fetch(BASE_URL + '/dreams?limit=100').catch(()=>null); if (!res || !res.ok){ els.allEmpty.style.display='block'; els.allList.innerHTML=''; return; } const arr = await res.json(); renderListInto(arr, els.allList, els.allEmpty, els.searchAll.value.trim()); }
+  async function loadRecent(){
+    const res = await fetch(BASE_URL + '/dreams?limit=100').catch(()=>null);
+    if (!res || !res.ok){ els.allEmpty.style.display='block'; els.allList.innerHTML=''; return; }
+    const arr = await res.json(); renderListInto(arr, els.allList, els.allEmpty, els.searchAll.value.trim());
+  }
   document.getElementById('btnReloadAll').addEventListener('click', loadRecent);
   document.getElementById('searchAll').addEventListener('input', loadRecent);
 
@@ -537,6 +645,45 @@
       els.similarList.appendChild(div);
     });
   }
+
+  // Forgot password + Legal
+  document.getElementById('openPrivacy').addEventListener('click', (e)=>{ e.preventDefault(); document.getElementById('legalTitle').textContent='Privacy Policy'; document.getElementById('legalModal').style.display='flex'; });
+  document.getElementById('openTerms').addEventListener('click', (e)=>{ e.preventDefault(); document.getElementById('legalTitle').textContent='Terms of Use'; document.getElementById('legalModal').style.display='flex'; });
+  document.getElementById('btnCloseLegal').addEventListener('click', ()=> document.getElementById('legalModal').style.display='none');
+
+  document.getElementById('linkForgot').addEventListener('click', (e)=>{
+    e.preventDefault();
+    els.authModal.style.display='none';
+    document.getElementById('resetAskModal').style.display='flex';
+  });
+  document.getElementById('btnCloseResetAsk').addEventListener('click', ()=> document.getElementById('resetAskModal').style.display='none');
+  document.getElementById('btnCloseResetConfirm').addEventListener('click', ()=> document.getElementById('resetConfirmModal').style.display='none');
+
+  document.getElementById('btnSendCode').addEventListener('click', async ()=>{
+    const email = document.getElementById('r_email').value.trim();
+    if (!email) { alert('ایمیل لازم است'); return; }
+    const alive = await checkServer(); if (!alive) { showNetErr(); return; }
+    const res = await fetch(BASE_URL + '/auth/request-reset', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ email }) });
+    const j = await res.json().catch(()=>({}));
+    if (!res.ok){ alert(j.error || 'ارسال کد ناموفق بود'); return; }
+    document.getElementById('resetInfo').textContent = 'کد ارسال شد. (کد تست: ' + j.code + ')';
+    document.getElementById('resetAskModal').style.display='none';
+    document.getElementById('resetConfirmModal').style.display='flex';
+  });
+
+  document.getElementById('btnConfirmReset').addEventListener('click', async ()=>{
+    const email = document.getElementById('r_email').value.trim();
+    const code = document.getElementById('r_code').value.trim();
+    const new_password = document.getElementById('r_newpass').value;
+    if (!email || !code || !new_password){ alert('همه فیلدها را پر کن'); return; }
+    const alive = await checkServer(); if (!alive) { showNetErr(); return; }
+    const res = await fetch(BASE_URL + '/auth/confirm-reset', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ email, code, new_password }) });
+    const j = await res.json().catch(()=>({}));
+    if (!res.ok){ alert(j.error || 'بازیابی رمز ناموفق بود'); return; }
+    document.getElementById('resetConfirmModal').style.display='none';
+    snack('رمز عبور به‌روزرسانی شد. لطفاً وارد شوید.');
+    els.authModal.style.display='flex';
+  });
 
   // init
   loadMe(); loadMine(); loadRecent();
