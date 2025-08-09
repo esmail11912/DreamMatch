@@ -4,36 +4,37 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#0b1020" />
-  <title>DreamMatch — Multilingual</title>
+  <title>DreamMatch — AppsGeyser</title>
   <style>
-    *{box-sizing:border-box}
-    :root{--bg:#0b1020;--panel:#111735;--line:#1f2a52;--muted:#9aa4bf;--text:#e6e8ef;--primary:#2e44ff;--danger:#ff9aa2}
-    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;background:var(--bg);color:var(--text)}
-    header{padding:max(12px,env(safe-area-inset-top)) 16px 12px;position:sticky;top:0;background:#0c1226cc;backdrop-filter:blur(8px);border-bottom:1px solid #1e2746;display:flex;align-items:center;gap:10px;justify-content:space-between;z-index:10}
-    h1{font-size:20px;margin:0}
-    main{padding:16px;max-width:1100px;margin:0 auto}
-    .grid{display:grid;grid-template-columns:1.1fr .9fr;gap:14px}
-    .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px}
-    .card h2{margin:0 0 10px;font-size:16px}
-    label{display:block;font-size:12px;color:var(--muted);margin:8px 0 4px}
-    input,select,textarea{width:100%;border-radius:10px;border:1px solid #293563;background:#0f1533;color:var(--text);padding:10px 12px;outline:none}
-    textarea{min-height:120px;resize:vertical}
-    button{cursor:pointer;border:1px solid #2b3a72;background:#1a2350;color:var(--text);padding:10px 14px;border-radius:12px;font-weight:600}
-    .primary{background:var(--primary);border-color:var(--primary);color:#fff}
-    .ghost{background:transparent}
-    .danger{color:var(--danger)}
-    .muted{color:var(--muted);font-size:12px}
-    .list{display:grid;gap:10px;max-height:440px;overflow:auto;padding-right:4px}
-    .item{border:1px solid #223067;background:#0f1533;border-radius:12px;padding:10px}
-    .item h3{margin:0 0 6px;font-size:14px}
-    .pill{display:inline-block;padding:2px 8px;border-radius:999px;background:#1d2859;border:1px solid #2b3a72;color:#c7d2fe;font-size:11px;margin-left:6px}
-    .sep{height:1px;background:#1e2746;margin:12px 0}
-    .row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-    .row2{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-    .empty{border:1px dashed #2b3a72;padding:16px;border-radius:12px;text-align:center;color:var(--muted)}
-    .snack{position:fixed;bottom:max(16px,env(safe-area-inset-bottom));right:16px;background:#0f1533;border:1px solid #2b3a72;padding:10px 14px;border-radius:12px;color:var(--text);opacity:0;transform:translateY(8px);transition:all .25s ease;pointer-events:none;z-index:20}
-    .snack.show{opacity:1;transform:translateY(0)}
-    @media (max-width:900px){.grid{grid-template-columns:1fr}}
+    * { box-sizing: border-box; }
+    :root { --bg:#0b1020; --panel:#111735; --line:#1f2a52; --muted:#9aa4bf; --text:#e6e8ef; --primary:#2e44ff; --danger:#ff9aa2; }
+    body { margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif; background: var(--bg); color: var(--text); }
+    header { padding: max(12px, env(safe-area-inset-top)) 16px 12px 16px; position:sticky; top:0; background:#0c1226cc; backdrop-filter: blur(8px); border-bottom:1px solid #1e2746; display:flex; align-items:center; gap:10px; justify-content:space-between; z-index:10 }
+    h1 { font-size:20px; margin:0 }
+    .sub { color: var(--muted); font-size:12px }
+    main { padding:16px; max-width: 1100px; margin: 0 auto; }
+    .grid { display:grid; grid-template-columns:1.1fr .9fr; gap:14px }
+    .card { background: var(--panel); border:1px solid var(--line); border-radius:14px; padding:14px }
+    .card h2 { margin:0 0 10px; font-size:16px }
+    label { display:block; font-size:12px; color: var(--muted); margin:8px 0 4px }
+    input, select, textarea { width:100%; border-radius:10px; border:1px solid #293563; background:#0f1533; color:var(--text); padding:10px 12px; outline:none }
+    textarea { min-height:120px; resize:vertical }
+    button { cursor:pointer; border:1px solid #2b3a72; background:#1a2350; color:var(--text); padding:10px 14px; border-radius:12px; font-weight:600 }
+    .primary { background:var(--primary); border-color:var(--primary); color:#fff }
+    .ghost { background:transparent }
+    .danger { color:var(--danger) }
+    .muted { color: var(--muted); font-size:12px }
+    .list { display:grid; gap:10px; max-height: 440px; overflow:auto; padding-right:4px }
+    .item { border:1px solid #223067; background:#0f1533; border-radius:12px; padding:10px }
+    .item h3 { margin:0 0 6px; font-size:14px }
+    .pill { display:inline-block; padding:2px 8px; border-radius:999px; background:#1d2859; border:1px solid #2b3a72; color:#c7d2fe; font-size:11px; margin-left:6px }
+    .sep { height:1px; background:#1e2746; margin:12px 0 }
+    .row { display:grid; grid-template-columns: 1fr 1fr; gap:8px }
+    .row2 { display:flex; gap:8px; align-items:center; flex-wrap:wrap }
+    .empty { border:1px dashed #2b3a72; padding:16px; border-radius:12px; text-align:center; color: var(--muted) }
+    .snack { position:fixed; bottom: max(16px, env(safe-area-inset-bottom)); right:16px; background:#0f1533; border:1px solid #2b3a72; padding:10px 14px; border-radius:12px; color:var(--text); opacity:0; transform: translateY(8px); transition: all .25s ease; pointer-events:none; z-index:20 }
+    .snack.show { opacity:1; transform: translateY(0); }
+    @media (max-width: 900px){ .grid { grid-template-columns: 1fr } }
   </style>
 </head>
 <body>
@@ -41,101 +42,101 @@
   <div>
     <h1>DreamMatch</h1>
     <div class="row2" style="margin-top:6px">
-      <label class="muted" id="label_lang">Language</label>
+      <label for="lang" class="muted" id="label_lang">Language</label>
       <select id="lang"></select>
     </div>
   </div>
   <div class="row2">
     <span class="muted" id="authStatus">Signed out</span>
-    <button id="btnOpenAuth" class="ghost" data-i18n="openAuth">Sign in / Sign up</button>
-    <button id="btnLogout" class="ghost" style="display:none" data-i18n="signOut">Sign out</button>
+    <button id="btnOpenAuth" class="ghost">Sign in / Sign up</button>
+    <button id="btnLogout" class="ghost" style="display:none">Sign out</button>
   </div>
 </header>
 
 <main>
   <div class="grid">
     <section class="card">
-      <h2 id="h_add" data-i18n="add">Add a Dream</h2>
+      <h2 id="h_add">Add a Dream</h2>
       <form id="dreamForm">
-        <label id="lab_title" data-i18n="title">Title (optional)</label>
-        <input id="title" type="text" placeholder="e.g., Flying over a neon city" data-i18n-ph="titlePh" />
-        <label id="lab_text" data-i18n="text">Dream text</label>
-        <textarea id="text" placeholder="Write what you remember..." data-i18n-ph="textPh"></textarea>
+        <label id="lab_title">Title (optional)</label>
+        <input id="title" type="text" placeholder="e.g., Flying over a neon city" />
+        <label id="lab_text">Dream text</label>
+        <textarea id="text" placeholder="Write what you remember..."></textarea>
 
         <div class="row">
           <div>
-            <label id="lab_date" data-i18n="date">Date</label>
+            <label id="lab_date">Date</label>
             <input id="date" type="date" />
           </div>
           <div>
-            <label id="lab_mood" data-i18n="mood">Mood</label>
+            <label id="lab_mood">Mood</label>
             <select id="mood">
               <option value="">—</option>
-              <option data-key="Calm">Calm</option>
-              <option data-key="Happy">Happy</option>
-              <option data-key="Weird">Weird</option>
-              <option data-key="Scary">Scary</option>
-              <option data-key="Sad">Sad</option>
-              <option data-key="Excited">Excited</option>
+              <option data-en="Calm" data-fa="آرام">Calm</option>
+              <option data-en="Happy" data-fa="شاد">Happy</option>
+              <option data-en="Weird" data-fa="عجیب">Weird</option>
+              <option data-en="Scary" data-fa="ترسناک">Scary</option>
+              <option data-en="Sad" data-fa="غمگین">Sad</option>
+              <option data-en="Excited" data-fa="هیجان‌انگیز">Excited</option>
             </select>
           </div>
         </div>
 
-        <label id="lab_tags" data-i18n="tags">Tags (comma separated)</label>
-        <input id="tags" type="text" placeholder="stairs, ocean, running" data-i18n-ph="tagsPh" />
+        <label id="lab_tags">Tags (comma separated)</label>
+        <input id="tags" type="text" placeholder="stairs, ocean, running" />
 
-        <label id="lab_vis" data-i18n="vis">Visibility</label>
+        <label id="lab_vis">Visibility</label>
         <select id="visibility">
-          <option value="public" data-i18n-opt="visPublic">Public (searchable by everyone)</option>
-          <option value="private" data-i18n-opt="visPrivate">Private (only you)</option>
+          <option value="public" data-en="Public (searchable by everyone)" data-fa="عمومی (قابل جستجو برای همه)">Public (searchable by everyone)</option>
+          <option value="private" data-en="Private (only you)" data-fa="خصوصی (فقط خودت)">Private (only you)</option>
         </select>
 
         <div class="row2" style="margin-top:8px">
-          <button type="submit" class="primary" id="btnSave" data-i18n="save">Save</button>
-          <button type="button" id="btnSearch" data-i18n="findSim">Find Similar (Global)</button>
-          <button type="button" id="btnClear" class="ghost" data-i18n="clear">Clear</button>
+          <button type="submit" class="primary" id="btnSave">Save</button>
+          <button type="button" id="btnSearch">Find Similar (Global)</button>
+          <button type="button" id="btnClear" class="ghost">Clear</button>
           <span class="muted" id="hint"></span>
         </div>
       </form>
 
       <div class="sep"></div>
-      <h2 id="h_results" data-i18n="results">Search Results</h2>
+      <h2 id="h_results">Search Results</h2>
       <div id="similarList" class="list"></div>
-      <div id="similarEmpty" class="empty" style="display:none" data-i18n="noResults">No results yet.</div>
+      <div id="similarEmpty" class="empty" style="display:none">No results yet.</div>
     </section>
 
     <section class="card">
-      <h2 id="h_profile" data-i18n="profile">My Profile</h2>
+      <h2 id="h_profile">My Profile</h2>
       <form id="profileForm">
-        <label id="lab_name" data-i18n="name">Name</label>
-        <input id="p_name" type="text" placeholder="Your display name" data-i18n-ph="namePh" />
-        <label id="lab_bio" data-i18n="bio">Bio</label>
-        <input id="p_bio" type="text" placeholder="A short line about you" data-i18n-ph="bioPh" />
-        <label id="lab_avatar" data-i18n="avatar">Avatar URL</label>
+        <label id="lab_name">Name</label>
+        <input id="p_name" type="text" placeholder="Your display name" />
+        <label id="lab_bio">Bio</label>
+        <input id="p_bio" type="text" placeholder="A short line about you" />
+        <label id="lab_avatar">Avatar URL</label>
         <input id="p_avatar" type="text" placeholder="https://..." />
         <div class="row2" style="margin-top:8px">
-          <button type="submit" id="btnSaveProfile" data-i18n="saveProfile">Save Profile</button>
-          <button type="button" id="btnReloadMe" class="ghost" data-i18n="reload">Reload</button>
+          <button type="submit" id="btnSaveProfile">Save Profile</button>
+          <button type="button" id="btnReloadMe" class="ghost">Reload</button>
         </div>
       </form>
 
       <div class="sep"></div>
-      <h2 id="h_mine" data-i18n="mine">My Dreams</h2>
+      <h2 id="h_mine">My Dreams</h2>
       <div class="row2">
-        <input id="searchMine" type="text" placeholder="Filter my dreams..." data-i18n-ph="filterMinePh" />
-        <button id="btnReloadMine" data-i18n="reload">Reload</button>
+        <input id="searchMine" type="text" placeholder="Filter my dreams..." />
+        <button id="btnReloadMine">Reload</button>
       </div>
       <div id="myList" class="list"></div>
-      <div id="myEmpty" class="empty" style="display:none" data-i18n="noMine">No dreams yet.</div>
+      <div id="myEmpty" class="empty" style="display:none">No dreams yet.</div>
 
       <div class="sep"></div>
-      <h2 id="h_public" data-i18n="pub">Recent Dreams (Public)</h2>
+      <h2 id="h_public">Recent Dreams (Public)</h2>
       <div class="row2">
-        <input id="searchAll" type="text" placeholder="Quick filter..." data-i18n-ph="filterAllPh" />
-        <button id="btnReloadAll" data-i18n="reload">Reload</button>
+        <input id="searchAll" type="text" placeholder="Quick filter..." />
+        <button id="btnReloadAll">Reload</button>
       </div>
       <div id="allList" class="list"></div>
-      <div id="allEmpty" class="empty" style="display:none" data-i18n="noAll">No dreams yet.</div>
+      <div id="allEmpty" class="empty" style="display:none">No dreams yet.</div>
     </section>
   </div>
 </main>
@@ -143,354 +144,437 @@
 <!-- Auth modal -->
 <div id="authModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,.5); align-items:center; justify-content:center;">
   <div class="card" style="width:420px; max-width:92vw">
-    <h2 id="h_auth" data-i18n="authTitle">Sign in / Sign up</h2>
-    <label id="lab_email" data-i18n="email">Email</label>
+    <h2 id="h_auth">Sign in / Sign up</h2>
+    <label id="lab_email">Email</label>
     <input id="a_email" type="text" placeholder="you@example.com" />
-    <label id="lab_pass" data-i18n="pass">Password</label>
+    <label id="lab_pass">Password</label>
     <input id="a_password" type="password" placeholder="••••••••" />
-    <label id="lab_name_signup" data-i18n="nameSignup">Name (for signup)</label>
-    <input id="a_name" type="text" placeholder="Optional" data-i18n-ph="nameSignupPh" />
+    <label id="lab_name_signup">Name (for signup)</label>
+    <input id="a_name" type="text" placeholder="Optional" />
     <div class="row2" style="margin-top:8px">
-      <button id="btnDoLogin" class="primary" data-i18n="doLogin">Sign in</button>
-      <button id="btnDoSignup" data-i18n="doSignup">Sign up</button>
-      <button id="btnCloseAuth" class="ghost" data-i18n="close">Close</button>
+      <button id="btnDoLogin" class="primary">Sign in</button>
+      <button id="btnDoSignup">Sign up</button>
+      <button id="btnCloseAuth" class="ghost">Close</button>
     </div>
-    <div class="muted" style="margin-top:6px" id="authNote" data-i18n="accountsNote">Accounts are stored on the server.</div>
+    <div class="muted" style="margin-top:6px" id="authNote">Accounts are stored on the server.</div>
   </div>
 </div>
 
 <div id="snack" class="snack"></div>
 
 <script>
-  // ====== CONFIG
+  // ====== تنظیمات اتصال
   const BASE_URL = "https://dreammatch-production.up.railway.app";
   const TOKEN = () => localStorage.getItem('dm_token') || '';
   const headers = () => TOKEN()
-    ? { 'Content-Type':'application/json','Authorization':'Bearer ' + TOKEN() }
+    ? { 'Content-Type':'application/json', 'Authorization':'Bearer ' + TOKEN() }
     : { 'Content-Type':'application/json' };
 
-  // ====== LANG ENGINE
-  // RTL language codes set (common)
-  const RTL = new Set(['ar','fa','ur','he','ps','sd','ug','ku','yi']);
-
-  // Core keys for UI + content
-  const KEYS = {
-    // header/auth
-    langLabel: 'Language', signedOut: 'Signed out', openAuth:'Sign in / Sign up', signOut:'Sign out',
-    // add form
-    add:'Add a Dream', title:'Title (optional)', titlePh:'e.g., Flying over a neon city',
-    text:'Dream text', textPh:'Write what you remember...', date:'Date', mood:'Mood',
-    tags:'Tags (comma separated)', tagsPh:'stairs, ocean, running', vis:'Visibility',
-    visPublic:'Public (searchable by everyone)', visPrivate:'Private (only you)',
-    save:'Save', findSim:'Find Similar (Global)', clear:'Clear',
-    // lists
-    results:'Search Results', noResults:'No results yet.',
-    profile:'My Profile', name:'Name', namePh:'Your display name', bio:'Bio', bioPh:'A short line about you',
-    avatar:'Avatar URL', saveProfile:'Save Profile', reload:'Reload',
-    mine:'My Dreams', filterMinePh:'Filter my dreams...', noMine:'No dreams yet.',
-    pub:'Recent Dreams (Public)', filterAllPh:'Quick filter...', noAll:'No dreams yet.',
-    // auth modal
-    authTitle:'Sign in / Sign up', email:'Email', pass:'Password',
-    nameSignup:'Name (for signup)', nameSignupPh:'Optional', doLogin:'Sign in', doSignup:'Sign up', close:'Close',
-    accountsNote:'Accounts are stored on the server.',
-    // alerts
-    alerts_needEmailPass:'Email and password are required',
-    alerts_needText:'Please write the dream text',
-    alerts_needLogin:'Please sign in first',
-    alerts_savedServer:'Saved to server',
-    alerts_signedIn:'Signed in',
-    alerts_signedOut:'Signed out',
-    alerts_signedUp:'Signed up',
-    alerts_profileSaved:'Profile saved',
-    // misc
-    visBadgePublic:'Public', visBadgePrivate:'Private', untitled:'Untitled dream', similarity:'Similarity'
-  };
-
-  // Language packs (sample full translations). For other languages, it falls back to EN where missing.
-  const LANG = {
-    en: { ...KEYS },
+  // ====== ترجمه‌ها
+  const I18N = {
+    en: {
+      langLabel: "Language",
+      signedOut: "Signed out",
+      openAuth: "Sign in / Sign up",
+      signOut: "Sign out",
+      add: "Add a Dream",
+      title: "Title (optional)",
+      titlePh: "e.g., Flying over a neon city",
+      text: "Dream text",
+      textPh: "Write what you remember...",
+      date: "Date",
+      mood: "Mood",
+      tags: "Tags (comma separated)",
+      vis: "Visibility",
+      visPublic: "Public (searchable by everyone)",
+      visPrivate: "Private (only you)",
+      save: "Save",
+      findSim: "Find Similar (Global)",
+      clear: "Clear",
+      results: "Search Results",
+      noResults: "No results yet.",
+      profile: "My Profile",
+      name: "Name",
+      namePh: "Your display name",
+      bio: "Bio",
+      bioPh: "A short line about you",
+      avatar: "Avatar URL",
+      saveProfile: "Save Profile",
+      reload: "Reload",
+      mine: "My Dreams",
+      filterMinePh: "Filter my dreams...",
+      noMine: "No dreams yet.",
+      pub: "Recent Dreams (Public)",
+      filterAllPh: "Quick filter...",
+      noAll: "No dreams yet.",
+      authTitle: "Sign in / Sign up",
+      email: "Email",
+      pass: "Password",
+      nameSignup: "Name (for signup)",
+      nameSignupPh: "Optional",
+      doLogin: "Sign in",
+      doSignup: "Sign up",
+      close: "Close",
+      accountsNote: "Accounts are stored on the server.",
+      alerts: {
+        needEmailPass: "Email and password are required",
+        needText: "Please write the dream text",
+        needLogin: "Please sign in first",
+        savedServer: "Saved to server",
+        signedIn: "Signed in",
+        signedOut: "Signed out",
+        signedUp: "Signed up",
+        profileSaved: "Profile saved"
+      },
+      visBadgePublic: "Public",
+      visBadgePrivate: "Private",
+      untitled: "Untitled dream",
+      similarity: "Similarity"
+    },
     fa: {
-      langLabel:'زبان', signedOut:'وارد نشده', openAuth:'ورود/ثبت‌نام', signOut:'خروج',
-      add:'ثبت خواب', title:'عنوان (دلخواه)', titlePh:'مثلاً پرواز روی شهر',
-      text:'متن خواب', textPh:'هر چی یادت میاد بنویس...', date:'تاریخ', mood:'حال‌وهوا',
-      tags:'تگ‌ها (با کاما جدا)', tagsPh:'پله‌ها، اقیانوس، دویدن', vis:'نمایش',
-      visPublic:'عمومی (قابل جستجو برای همه)', visPrivate:'خصوصی (فقط خودت)',
-      save:'ذخیره', findSim:'جستجوی مشابه (جهانی)', clear:'پاک کردن فرم',
-      results:'نتایج جستجو', noResults:'فعلاً نتیجه‌ای نیست.',
-      profile:'پروفایل من', name:'نام', namePh:'اسم نمایشی', bio:'بیو', bioPh:'یه جمله کوتاه',
-      avatar:'آواتار (URL)', saveProfile:'ذخیره پروفایل', reload:'بازخوانی',
-      mine:'خواب‌های من', filterMinePh:'فیلتر خواب‌های من...', noMine:'هنوز خوابی ثبت نکردی.',
-      pub:'خواب‌های اخیر (عمومی)', filterAllPh:'جستجوی سریع...', noAll:'چیزی نیست هنوز.',
-      authTitle:'ورود / ثبت‌نام', email:'ایمیل', pass:'رمز عبور',
-      nameSignup:'نام (برای ثبت‌نام)', nameSignupPh:'دلخواه', doLogin:'ورود', doSignup:'ثبت‌نام', close:'بستن',
-      accountsNote:'حساب‌ها روی سرور ذخیره می‌شوند.',
-      alerts_needEmailPass:'ایمیل و رمز لازم است',
-      alerts_needText:'متن خواب را بنویس',
-      alerts_needLogin:'اول وارد شو',
-      alerts_savedServer:'روی سرور ذخیره شد',
-      alerts_signedIn:'وارد شدی',
-      alerts_signedOut:'خارج شدی',
-      alerts_signedUp:'ثبت‌نام موفق',
-      alerts_profileSaved:'پروفایل ذخیره شد',
-      visBadgePublic:'عمومی', visBadgePrivate:'خصوصی', untitled:'بدون عنوان', similarity:'شباهت'
-    },
-    ar: {
-      langLabel:'اللغة', signedOut:'مسجّل خروج', openAuth:'تسجيل الدخول / إنشاء حساب', signOut:'تسجيل الخروج',
-      add:'أضف حلماً', title:'العنوان (اختياري)', titlePh:'مثال: الطيران فوق مدينة نيون',
-      text:'نص الحلم', textPh:'اكتب ما تتذكره...', date:'التاريخ', mood:'الحالة',
-      tags:'وسوم (مفصولة بفاصلة)', tagsPh:'سلالم، محيط، جري', vis:'إظهار',
-      visPublic:'عام (قابل للبحث للجميع)', visPrivate:'خاص (أنت فقط)',
-      save:'حفظ', findSim:'البحث عن المشابه (عالمياً)', clear:'مسح',
-      results:'نتائج البحث', noResults:'لا توجد نتائج بعد.',
-      profile:'ملفي الشخصي', name:'الاسم', namePh:'اسم العرض', bio:'نبذة', bioPh:'سطر قصير عنك',
-      avatar:'رابط الصورة الرمزية', saveProfile:'حفظ الملف', reload:'تحديث',
-      mine:'أحلامي', filterMinePh:'تصفية أحلامي...', noMine:'لا توجد أحلام بعد.',
-      pub:'أحدث الأحلام (عام)', filterAllPh:'تصفية سريعة...', noAll:'لا شيء بعد.',
-      authTitle:'تسجيل الدخول / إنشاء حساب', email:'البريد الإلكتروني', pass:'كلمة المرور',
-      nameSignup:'الاسم (للتسجيل)', nameSignupPh:'اختياري', doLogin:'تسجيل الدخول', doSignup:'إنشاء حساب', close:'إغلاق',
-      accountsNote:'تُخزَّن الحسابات على الخادم.',
-      alerts_needEmailPass:'البريد وكلمة المرور مطلوبان',
-      alerts_needText:'يرجى كتابة نص الحلم',
-      alerts_needLogin:'يرجى تسجيل الدخول أولاً',
-      alerts_savedServer:'تم الحفظ على الخادم',
-      alerts_signedIn:'تم تسجيل الدخول',
-      alerts_signedOut:'تم تسجيل الخروج',
-      alerts_signedUp:'تم إنشاء الحساب',
-      alerts_profileSaved:'تم حفظ الملف',
-      visBadgePublic:'عام', visBadgePrivate:'خاص', untitled:'بدون عنوان', similarity:'التشابه'
-    },
-    tr: { langLabel:'Dil', signedOut:'Çıkış yapıldı', openAuth:'Giriş / Kayıt ol', signOut:'Çıkış',
-      add:'Rüya Ekle', title:'Başlık (opsiyonel)', titlePh:'örn. Neon şehir üzerinde uçmak',
-      text:'Rüya metni', textPh:'Hatırladıklarını yaz...', date:'Tarih', mood:'Ruh hali',
-      tags:'Etiketler (virgülle)', tagsPh:'merdiven, okyanus, koşu', vis:'Görünürlük',
-      visPublic:'Herkese açık (herkes arayabilir)', visPrivate:'Özel (sadece sen)',
-      save:'Kaydet', findSim:'Benzerleri Bul (Küresel)', clear:'Temizle',
-      results:'Arama Sonuçları', noResults:'Henüz sonuç yok.',
-      profile:'Profilim', name:'İsim', namePh:'Görünen adın', bio:'Biyografi', bioPh:'Kısa bir cümle',
-      avatar:'Avatar URL', saveProfile:'Profili Kaydet', reload:'Yenile',
-      mine:'Rüyalarım', filterMinePh:'Rüyalarımı filtrele...', noMine:'Henüz rüya yok.',
-      pub:'Son Rüyalar (Genel)', filterAllPh:'Hızlı filtre...', noAll:'Henüz bir şey yok.',
-      authTitle:'Giriş / Kayıt', email:'E-posta', pass:'Şifre',
-      nameSignup:'İsim (kayıt için)', nameSignupPh:'Opsiyonel', doLogin:'Giriş', doSignup:'Kayıt', close:'Kapat',
-      accountsNote:'Hesaplar sunucuda saklanır.',
-      alerts_needEmailPass:'E-posta ve şifre gerekli',
-      alerts_needText:'Lütfen rüya metnini yazın',
-      alerts_needLogin:'Lütfen önce giriş yapın',
-      alerts_savedServer:'Sunucuya kaydedildi',
-      alerts_signedIn:'Giriş yapıldı',
-      alerts_signedOut:'Çıkış yapıldı',
-      alerts_signedUp:'Kayıt tamam',
-      alerts_profileSaved:'Profil kaydedildi',
-      visBadgePublic:'Genel', visBadgePrivate:'Özel', untitled:'Başlıksız', similarity:'Benzerlik'
-    },
-    es: { /* ... */ },
-    fr: { /* ... */ },
-    de: { /* ... */ },
-    it: { /* ... */ },
-    pt: { /* ... */ },
-    ru: { /* ... */ },
-    hi: { /* ... */ },
-    ur: { /* ... */ },
-    id: { /* ... */ },
-    th: { /* ... */ },
-    vi: { /* ... */ },
-    ja: { /* ... */ },
-    ko: { /* ... */ },
-    'zh-Hans': { /* Chinese Simplified ... */ },
-    'zh-Hant': { /* Chinese Traditional ... */ }
+      langLabel: "زبان",
+      signedOut: "وارد نشده",
+      openAuth: "ورود/ثبت‌نام",
+      signOut: "خروج",
+      add: "ثبت خواب",
+      title: "عنوان (دلخواه)",
+      titlePh: "مثلاً پرواز روی شهر",
+      text: "متن خواب",
+      textPh: "هر چی یادت میاد بنویس...",
+      date: "تاریخ",
+      mood: "حال‌وهوا",
+      tags: "تگ‌ها (با کاما جدا)",
+      vis: "نمایش",
+      visPublic: "عمومی (قابل جستجو برای همه)",
+      visPrivate: "خصوصی (فقط خودت)",
+      save: "ذخیره",
+      findSim: "جستجوی مشابه (جهانی)",
+      clear: "پاک کردن فرم",
+      results: "نتایج جستجو",
+      noResults: "فعلاً نتیجه‌ای نیست.",
+      profile: "پروفایل من",
+      name: "نام",
+      namePh: "اسم نمایشی",
+      bio: "Bio",
+      bioPh: "یه جمله کوتاه",
+      avatar: "Avatar URL",
+      saveProfile: "ذخیره پروفایل",
+      reload: "بازخوانی",
+      mine: "خواب‌های من",
+      filterMinePh: "فیلتر خواب‌های من...",
+      noMine: "هنوز خوابی ثبت نکردی.",
+      pub: "خواب‌های اخیر (عمومی)",
+      filterAllPh: "جستجوی سریع...",
+      noAll: "چیزی نیست هنوز.",
+      authTitle: "ورود / ثبت‌نام",
+      email: "ایمیل",
+      pass: "رمز عبور",
+      nameSignup: "نام (برای ثبت‌نام)",
+      nameSignupPh: "دلخواه",
+      doLogin: "ورود",
+      doSignup: "ثبت‌نام",
+      close: "بستن",
+      accountsNote: "حساب‌ها روی سرور ذخیره می‌شوند.",
+      alerts: {
+        needEmailPass: "ایمیل و رمز لازم است",
+        needText: "متن خواب را بنویس",
+        needLogin: "اول وارد شو",
+        savedServer: "روی سرور ذخیره شد",
+        signedIn: "وارد شدی",
+        signedOut: "خارج شدی",
+        signedUp: "ثبت‌نام موفق",
+        profileSaved: "پروفایل ذخیره شد"
+      },
+      visBadgePublic: "عمومی",
+      visBadgePrivate: "خصوصی",
+      untitled: "بدون عنوان",
+      similarity: "شباهت"
+    }
   };
 
-  // Fallback to English for missing keys
-  function tKey(lang, key){
-    const pack = LANG[lang] || {};
-    return (pack && key in pack) ? pack[key] : KEYS[key] || key;
+  // ====== مدیریت زبان‌ها: whitelist + fallback
+  const AVAILABLE_LANGS = ['en', 'fa'];   // هر زبان آماده شد اینجا اضافه کن (مثل 'ar','tr',...)
+  const DEFAULT_LANG = 'en';
+  const LANG_KEY = 'dm_lang';
+  const LANG_NAMES = { en: 'English', fa: 'فارسی' };
+
+  function t(lang){
+    return Object.assign({}, I18N[DEFAULT_LANG], I18N[lang] || {});
   }
+  function pickLang(){
+    const saved = localStorage.getItem(LANG_KEY);
+    if (saved && AVAILABLE_LANGS.includes(saved)) return saved;
+    const nav = (navigator.language || 'en').split('-')[0];
+    return AVAILABLE_LANGS.includes(nav) ? nav : DEFAULT_LANG;
+  }
+
+  // عناصر صفحه
+  const els = {
+    lang: document.getElementById('lang'),
+    label_lang: document.getElementById('label_lang'),
+    authStatus: document.getElementById('authStatus'),
+    btnOpenAuth: document.getElementById('btnOpenAuth'),
+    btnLogout: document.getElementById('btnLogout'),
+
+    h_add: document.getElementById('h_add'),
+    lab_title: document.getElementById('lab_title'),
+    title: document.getElementById('title'),
+    lab_text: document.getElementById('lab_text'),
+    text: document.getElementById('text'),
+    lab_date: document.getElementById('lab_date'),
+    date: document.getElementById('date'),
+    lab_mood: document.getElementById('lab_mood'),
+    mood: document.getElementById('mood'),
+    lab_tags: document.getElementById('lab_tags'),
+    tags: document.getElementById('tags'),
+    lab_vis: document.getElementById('lab_vis'),
+    visibility: document.getElementById('visibility'),
+    btnSave: document.getElementById('btnSave'),
+    btnSearch: document.getElementById('btnSearch'),
+    btnClear: document.getElementById('btnClear'),
+    hint: document.getElementById('hint'),
+
+    h_results: document.getElementById('h_results'),
+    similarList: document.getElementById('similarList'),
+    similarEmpty: document.getElementById('similarEmpty'),
+
+    h_profile: document.getElementById('h_profile'),
+    lab_name: document.getElementById('lab_name'),
+    p_name: document.getElementById('p_name'),
+    lab_bio: document.getElementById('lab_bio'),
+    p_bio: document.getElementById('p_bio'),
+    lab_avatar: document.getElementById('lab_avatar'),
+    p_avatar: document.getElementById('p_avatar'),
+    btnSaveProfile: document.getElementById('btnSaveProfile'),
+    btnReloadMe: document.getElementById('btnReloadMe'),
+
+    h_mine: document.getElementById('h_mine'),
+    searchMine: document.getElementById('searchMine'),
+    btnReloadMine: document.getElementById('btnReloadMine'),
+    myList: document.getElementById('myList'),
+    myEmpty: document.getElementById('myEmpty'),
+
+    h_public: document.getElementById('h_public'),
+    searchAll: document.getElementById('searchAll'),
+    btnReloadAll: document.getElementById('btnReloadAll'),
+    allList: document.getElementById('allList'),
+    allEmpty: document.getElementById('allEmpty'),
+
+    authModal: document.getElementById('authModal'),
+    h_auth: document.getElementById('h_auth'),
+    lab_email: document.getElementById('lab_email'),
+    a_email: document.getElementById('a_email'),
+    lab_pass: document.getElementById('lab_pass'),
+    a_password: document.getElementById('a_password'),
+    lab_name_signup: document.getElementById('lab_name_signup'),
+    a_name: document.getElementById('a_name'),
+    btnDoLogin: document.getElementById('btnDoLogin'),
+    btnDoSignup: document.getElementById('btnDoSignup'),
+    btnCloseAuth: document.getElementById('btnCloseAuth'),
+    authNote: document.getElementById('authNote'),
+    snack: document.getElementById('snack')
+  };
+
   function setDir(lang){
-    const base = lang.split('-')[0];
-    document.documentElement.dir = RTL.has(base) ? 'rtl' : 'ltr';
+    document.documentElement.dir = (lang==='fa') ? 'rtl' : 'ltr';
     document.documentElement.lang = lang;
   }
 
-  // Build language selector using Intl.DisplayNames
-  const sel = document.getElementById('lang');
-  const ALL_CODES = Object.keys(LANG).concat([
-    // You can append more ISO codes here when packs are added (for the 195 languages)
-    // e.g., 'az','bn','bg','cs','da','el','et','eu','fi','fil','ga','gl','he','hr','hu','ka','kk','km','lo','lt','lv','mk','mn','ms','my','nb','ne','nl','no','pl','ro','si','sk','sl','sq','sr','sv','sw','ta','te','tk','uk','uz','xh','zu', ...
-  ]);
-  function buildLangOptions(){
-    const dn = new Intl.DisplayNames([navigator.language||'en'], { type: 'language' });
-    sel.innerHTML='';
-    const seen = new Set();
-    ALL_CODES.forEach(code=>{
-      if (seen.has(code)) return; seen.add(code);
-      const opt = document.createElement('option');
-      const base = code.split('-')[0];
-      let label = dn.of(base) || code;
-      // Show native label if we can:
-      try { label = new Intl.DisplayNames([base],{type:'language'}).of(base) || label; } catch(_){}
-      opt.value = code; opt.textContent = label.charAt(0).toUpperCase()+label.slice(1) + ` (${code})`;
-      sel.appendChild(opt);
-    });
-  }
-
   function applyLang(lang){
+    const i = t(lang);
+
+    // هدر
+    els.label_lang.textContent = i.langLabel;
+    els.authStatus.textContent = TOKEN() ? (lang==='fa' ? 'وارد شده' : 'Signed in') : i.signedOut;
+    els.btnOpenAuth.textContent = i.openAuth;
+    els.btnLogout.textContent = i.signOut;
+
+    // فرم افزودن
+    els.h_add.textContent = i.add;
+    els.lab_title.textContent = i.title; els.title.placeholder = i.titlePh;
+    els.lab_text.textContent = i.text; els.text.placeholder = i.textPh;
+    els.lab_date.textContent = i.date;
+    els.lab_mood.textContent = i.mood;
+    els.lab_tags.textContent = i.tags; els.tags.placeholder = i.tagsPh || (i.tags || '').replace('(comma separated)','');
+    els.lab_vis.textContent = i.vis;
+
+    Array.from(els.mood.options).forEach(opt=>{ if (opt.dataset && opt.dataset[lang]) opt.textContent = opt.dataset[lang]; });
+    Array.from(els.visibility.options).forEach(opt=>{ if (opt.dataset && opt.dataset[lang]) opt.textContent = opt.dataset[lang]; });
+
+    els.btnSave.textContent = i.save;
+    els.btnSearch.textContent = i.findSim;
+    els.btnClear.textContent = i.clear;
+
+    els.h_results.textContent = i.results;
+    els.similarEmpty.textContent = i.noResults;
+
+    // پروفایل
+    els.h_profile.textContent = i.profile;
+    els.lab_name.textContent = i.name; els.p_name.placeholder = i.namePh;
+    els.lab_bio.textContent = i.bio; els.p_bio.placeholder = i.bioPh;
+    els.lab_avatar.textContent = i.avatar;
+    els.btnSaveProfile.textContent = i.saveProfile;
+    els.btnReloadMe.textContent = i.reload;
+
+    // لیست‌ها
+    els.h_mine.textContent = i.mine;
+    els.searchMine.placeholder = i.filterMinePh;
+    els.btnReloadMine.textContent = i.reload;
+    els.myEmpty.textContent = i.noMine;
+
+    els.h_public.textContent = i.pub;
+    els.searchAll.placeholder = i.filterAllPh;
+    els.btnReloadAll.textContent = i.reload;
+    els.allEmpty.textContent = i.noAll;
+
+    // احراز هویت
+    els.h_auth.textContent = i.authTitle;
+    els.lab_email.textContent = i.email;
+    els.lab_pass.textContent = i.pass;
+    els.lab_name_signup.textContent = i.nameSignup;
+    els.a_name.placeholder = i.nameSignupPh;
+    els.btnDoLogin.textContent = i.doLogin;
+    els.btnDoSignup.textContent = i.doSignup;
+    els.btnCloseAuth.textContent = i.close;
+    els.authNote.textContent = i.accountsNote;
+
     setDir(lang);
-    // Static labels
-    document.getElementById('label_lang').textContent = tKey(lang,'langLabel');
-    document.getElementById('authStatus').textContent = TOKEN() ? ( (lang.startsWith('fa')||lang.startsWith('ar')||lang.startsWith('ur')) ? 'وارد شده' : tKey(lang,'alerts_signedIn') ) : tKey(lang,'signedOut');
-
-    // bulk [data-i18n]
-    document.querySelectorAll('[data-i18n]').forEach(el=>{
-      const key = el.getAttribute('data-i18n');
-      el.textContent = tKey(lang, key);
-    });
-
-    // placeholders [data-i18n-ph]
-    document.querySelectorAll('[data-i18n-ph]').forEach(el=>{
-      const key = el.getAttribute('data-i18n-ph');
-      el.placeholder = tKey(lang, key);
-    });
-
-    // options [data-i18n-opt]
-    document.querySelectorAll('[data-i18n-opt]').forEach(el=>{
-      const key = el.getAttribute('data-i18n-opt');
-      el.textContent = tKey(lang, key);
-    });
-
-    // mood options via keys
-    const moodMap = {
-      Calm:{ en:'Calm', fa:'آرام', ar:'هادئ', tr:'Sakin', es:'Calma', fr:'Calme', de:'Ruhig', ru:'Спокойно', hi:'शांत', ur:'پُرسکون', id:'Tenang', th:'สงบ', vi:'Bình tĩnh', ja:'穏やか', ko:'차분함', 'zh-Hans':'平静', 'zh-Hant':'平靜' },
-      Happy:{ en:'Happy', fa:'شاد', ar:'سعيد', tr:'Mutlu', es:'Feliz', fr:'Heureux', de:'Glücklich', ru:'Счастливый', hi:'खुश', ur:'خوش', id:'Senang', th:'มีความสุข', vi:'Vui', ja:'幸せ', ko:'행복', 'zh-Hans':'开心', 'zh-Hant':'開心' },
-      Weird:{ en:'Weird', fa:'عجیب', ar:'غريب', tr:'Tuhaf', es:'Raro', fr:'Bizarre', de:'Seltsam', ru:'Странно', hi:'अजीब', ur:'عجیب', id:'Aneh', th:'แปลก', vi:'Kỳ lạ', ja:'変', ko:'이상함', 'zh-Hans':'奇怪', 'zh-Hant':'奇怪' },
-      Scary:{ en:'Scary', fa:'ترسناک', ar:'مخيف', tr:'Korkutucu', es:'Aterrador', fr:'Effrayant', de:'Gruselig', ru:'Страшно', hi:'डरावना', ur:'ڈراؤنا', id:'Menakutkan', th:'น่ากลัว', vi:'Đáng sợ', ja:'怖い', ko:'무서운', 'zh-Hans':'可怕', 'zh-Hant':'可怕' },
-      Sad:{ en:'Sad', fa:'غمگین', ar:'حزين', tr:'Üzgün', es:'Triste', fr:'Triste', de:'Traurig', ru:'Грустно', hi:'उदास', ur:'اداس', id:'Sedih', th:'เศร้า', vi:'Buồn', ja:'悲しい', ko:'슬픈', 'zh-Hans':'难过', 'zh-Hant':'難過' },
-      Excited:{ en:'Excited', fa:'هیجان‌انگیز', ar:'متشوّق', tr:'Heyecanlı', es:'Emocionado', fr:'Excité', de:'Aufgeregt', ru:'Взволнован', hi:'उत्साहित', ur:'پرجوش', id:'Bersemangat', th:'ตื่นเต้น', vi:'Hào hứng', ja:'ワクワク', ko:'신남', 'zh-Hans':'兴奋', 'zh-Hant':'興奮' }
-    };
-    document.querySelectorAll('#mood option[data-key]').forEach(opt=>{
-      const k = opt.getAttribute('data-key');
-      const base = lang.split('-')[0];
-      const pack = moodMap[k] || {};
-      opt.textContent = pack[lang] || pack[base] || pack['en'] || k;
-    });
   }
 
-  const LANG_KEY = 'dm_lang';
-  buildLangOptions();
-  const initialLang = localStorage.getItem(LANG_KEY)
-    || (navigator.languages && navigator.languages[0]) || navigator.language || 'en';
-  const pick = ALL_CODES.find(c => initialLang.toLowerCase().startsWith(c.toLowerCase())) || 'en';
-  document.getElementById('lang').value = pick;
-  applyLang(pick);
+  function buildLangSelect(){
+    els.lang.innerHTML = AVAILABLE_LANGS
+      .map(code => `<option value="${code}">${LANG_NAMES[code] || code}</option>`)
+      .join('');
+  }
 
-  document.getElementById('lang').addEventListener('change', ()=>{
-    const val = document.getElementById('lang').value;
-    localStorage.setItem(LANG_KEY, val);
-    applyLang(val);
-  });
-
-  // ====== Helpers
-  function snack(msg){ const el = document.getElementById('snack'); el.textContent = msg; el.classList.add('show'); setTimeout(()=> el.classList.remove('show'), 2200); }
+  // ====== ابزارک‌ها
+  function snack(msg){ els.snack.textContent = msg; els.snack.classList.add('show'); setTimeout(()=> els.snack.classList.remove('show'), 2200); }
   function today(){ return new Date().toISOString().slice(0,10); }
   function esc(s){ return String(s||'').replace(/[&<>"']/g, c=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c])); }
   document.getElementById('date').value = today();
 
   // ====== Auth
-  const i18n = (k)=> tKey(document.getElementById('lang').value, k);
-  document.getElementById('btnOpenAuth').addEventListener('click', ()=> document.getElementById('authModal').style.display='flex');
-  document.getElementById('btnCloseAuth').addEventListener('click', ()=> document.getElementById('authModal').style.display='none');
+  document.getElementById('btnOpenAuth').addEventListener('click', ()=> els.authModal.style.display = 'flex');
+  document.getElementById('btnCloseAuth').addEventListener('click', ()=> els.authModal.style.display='none');
   document.getElementById('btnLogout').addEventListener('click', async ()=>{
     try { await fetch(BASE_URL + '/auth/logout', { method:'POST', headers: headers() }); } catch(e){}
     localStorage.removeItem('dm_token');
-    document.getElementById('authStatus').textContent = i18n('signedOut');
-    document.getElementById('btnLogout').style.display = 'none';
-    snack(i18n('alerts_signedOut'));
+    els.authStatus.textContent = t(els.lang.value).signedOut;
+    document.getElementById('btnLogout').style.display='none';
+    snack(t(els.lang.value).alerts.signedOut);
   });
+
   document.getElementById('btnDoSignup').addEventListener('click', async ()=>{
-    const payload = { email: a_email.value.trim(), password: a_password.value, name: a_name.value.trim() };
-    if (!payload.email || !payload.password){ alert(i18n('alerts_needEmailPass')); return; }
-    const res = await fetch(BASE_URL + '/auth/signup', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload) });
+    const i = t(els.lang.value);
+    const payload = {
+      email: document.getElementById('a_email').value.trim(),
+      password: document.getElementById('a_password').value,
+      name: document.getElementById('a_name').value.trim()
+    };
+    if (!payload.email || !payload.password){ alert(i.alerts.needEmailPass); return; }
+    const res = await fetch(BASE_URL + '/auth/signup', {
+      method:'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(payload)
+    });
     const data = await res.json().catch(()=>({}));
     if (!res.ok){ alert(data.error || 'Signup failed'); return; }
     localStorage.setItem('dm_token', data.token);
-    authModal.style.display='none';
-    authStatus.textContent = i18n('alerts_signedIn');
-    btnLogout.style.display='';
-    snack(i18n('alerts_signedUp'));
+    els.authModal.style.display='none';
+    els.authStatus.textContent = els.lang.value==='fa' ? 'وارد شده' : 'Signed in';
+    document.getElementById('btnLogout').style.display='';
+    snack(i.alerts.signedUp);
   });
+
   document.getElementById('btnDoLogin').addEventListener('click', async ()=>{
-    const payload = { email: a_email.value.trim(), password: a_password.value };
-    if (!payload.email || !payload.password){ alert(i18n('alerts_needEmailPass')); return; }
-    const res = await fetch(BASE_URL + '/auth/login', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload) });
+    const i = t(els.lang.value);
+    const payload = {
+      email: document.getElementById('a_email').value.trim(),
+      password: document.getElementById('a_password').value
+    };
+    if (!payload.email || !payload.password){ alert(i.alerts.needEmailPass); return; }
+    const res = await fetch(BASE_URL + '/auth/login', {
+      method:'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(payload)
+    });
     const data = await res.json().catch(()=>({}));
     if (!res.ok){ alert(data.error || 'Login failed'); return; }
     localStorage.setItem('dm_token', data.token);
-    authModal.style.display='none';
-    authStatus.textContent = i18n('alerts_signedIn');
-    btnLogout.style.display='';
-    snack(i18n('alerts_signedIn'));
+    els.authModal.style.display='none';
+    els.authStatus.textContent = els.lang.value==='fa' ? 'وارد شده' : 'Signed in';
+    document.getElementById('btnLogout').style.display='';
+    snack(i.alerts.signedIn);
   });
 
   // ====== Profile
   async function loadMe(clear=false){
-    if (clear){ p_name.value=''; p_bio.value=''; p_avatar.value=''; return; }
+    if (clear){ els.p_name.value=''; els.p_bio.value=''; els.p_avatar.value=''; return; }
     if (!TOKEN()) return;
     const res = await fetch(BASE_URL + '/me', { headers: { 'Authorization':'Bearer ' + TOKEN() } }).catch(()=>null);
     if (!res || !res.ok) return;
     const me = await res.json();
-    p_name.value = me.name || '';
-    p_bio.value = me.bio || '';
-    p_avatar.value = me.avatar_url || '';
+    els.p_name.value = me.name || '';
+    els.p_bio.value = me.bio || '';
+    els.p_avatar.value = me.avatar_url || '';
   }
-  profileForm.addEventListener('submit', async (e)=>{
+  document.getElementById('profileForm').addEventListener('submit', async (e)=>{
     e.preventDefault();
-    if (!TOKEN()){ alert(i18n('alerts_needLogin')); return; }
-    const payload = { name: p_name.value.trim(), bio: p_bio.value.trim(), avatar_url: p_avatar.value.trim() };
+    const i = t(els.lang.value);
+    if (!TOKEN()){ alert(i.alerts.needLogin); return; }
+    const payload = { name: els.p_name.value.trim(), bio: els.p_bio.value.trim(), avatar_url: els.p_avatar.value.trim() };
     const res = await fetch(BASE_URL + '/me', { method:'PUT', headers: headers(), body: JSON.stringify(payload) });
     if (!res.ok){ alert('Could not save profile'); return; }
-    snack(i18n('alerts_profileSaved'));
+    snack(i.alerts.profileSaved);
   });
-  btnReloadMe.addEventListener('click', ()=> loadMe());
+  document.getElementById('btnReloadMe').addEventListener('click', ()=> loadMe());
 
-  // ====== Dreams CRUD
-  dreamForm.addEventListener('submit', async (e)=>{
+  // ====== Dreams
+  document.getElementById('dreamForm').addEventListener('submit', async (e)=>{
     e.preventDefault();
-    if (!TOKEN()){ alert(i18n('alerts_needLogin')); return; }
+    const i = t(els.lang.value);
+    if (!TOKEN()){ alert(i.alerts.needLogin); return; }
     const payload = {
-      title: title.value.trim(),
-      text: text.value.trim(),
-      date: date.value,
-      mood: mood.value,
-      tags: tags.value.trim(),
-      visibility: visibility.value
+      title: els.title.value.trim(),
+      text: els.text.value.trim(),
+      date: els.date.value,
+      mood: els.mood.value,
+      tags: els.tags.value.trim(),
+      visibility: els.visibility.value
     };
-    if (!payload.text){ alert(i18n('alerts_needText')); return; }
+    if (!payload.text){ alert(i.alerts.needText); return; }
     const res = await fetch(BASE_URL + '/dreams', { method:'POST', headers: headers(), body: JSON.stringify(payload) }).catch(()=>null);
     if (!res || !res.ok){ alert('Save failed'); return; }
-    hint.textContent = i18n('alerts_savedServer');
-    dreamForm.reset(); document.getElementById('date').value = today();
+    els.hint.textContent = i.alerts.savedServer;
+    document.getElementById('dreamForm').reset();
+    document.getElementById('date').value = new Date().toISOString().slice(0,10);
     loadMine(); loadRecent();
   });
-  btnClear.addEventListener('click', ()=>{ dreamForm.reset(); document.getElementById('date').value=today(); text.focus(); });
+  document.getElementById('btnClear').addEventListener('click', ()=>{
+    document.getElementById('dreamForm').reset();
+    document.getElementById('date').value=new Date().toISOString().slice(0,10);
+    els.text.focus();
+  });
 
   function renderListInto(arr, container, emptyEl, q, mine=false){
     container.innerHTML='';
-    const data = (q? arr.filter(d => (d.title||'').toLowerCase().includes(q.toLowerCase()) || (d.text||'').toLowerCase().includes(q.toLowerCase()) || (d.tags||'').toLowerCase().includes(q.toLowerCase())) : arr);
+    const data = (q? arr.filter(d =>
+      (d.title||'').toLowerCase().includes(q.toLowerCase()) ||
+      (d.text||'').toLowerCase().includes(q.toLowerCase()) ||
+      (d.tags||'').toLowerCase().includes(q.toLowerCase())
+    ) : arr);
     if (data.length===0){ emptyEl.style.display='block'; return; }
     emptyEl.style.display='none';
+    const i = t(els.lang.value);
     data.forEach(d=>{
       const div = document.createElement('div'); div.className='item';
-      const vis = d.visibility ? `<span class="pill">${d.visibility==='private'? i18n('visBadgePrivate') : i18n('visBadgePublic')}</span>`:'';
+      const vis = d.visibility ? `<span class="pill">${d.visibility==='private'? i.visBadgePrivate : i.visBadgePublic}</span>`:'';
       div.innerHTML = `
-        <h3>${esc(d.title)||i18n('untitled')}</h3>
+        <h3>${esc(d.title)||i.untitled}</h3>
         <div class="muted">${esc(d.date||'—')} · ${(d.mood||'')} ${vis}</div>
         <div class="muted" style="margin-top:6px">${esc(String(d.text||'')).slice(0,180)}${(d.text||'').length>180?'…':''}</div>
       `;
       if (mine){
         const btns = document.createElement('div'); btns.className='row2'; btns.style.marginTop='8px';
-        const del = document.createElement('button'); del.textContent= i18n('clear').split(' ')[0] === 'Clear' ? 'Delete' : (document.documentElement.dir==='rtl' ? 'حذف' : 'Delete');
-        del.className='ghost danger';
+        const del = document.createElement('button'); del.textContent= els.lang.value==='fa' ? 'حذف' : 'Delete'; del.className='ghost danger';
         del.addEventListener('click', async ()=>{
-          if (!confirm(document.documentElement.dir==='rtl' ? 'حذف شود؟' : 'Delete this dream?')) return;
+          if (!confirm(els.lang.value==='fa' ? 'حذف شود؟' : 'Delete this dream?')) return;
           const res = await fetch(BASE_URL + '/dreams/' + d.id, { method:'DELETE', headers: { 'Authorization':'Bearer ' + TOKEN() } });
           if (res.ok){ loadMine(); } else { alert('Delete failed'); }
         });
@@ -501,50 +585,65 @@
   }
 
   async function loadMine(){
-    if (!TOKEN()){ myEmpty.style.display='block'; myList.innerHTML=''; return; }
+    if (!TOKEN()){ els.myEmpty.style.display='block'; els.myList.innerHTML=''; return; }
     const res = await fetch(BASE_URL + '/dreams?mine=true&limit=100', { headers: { 'Authorization':'Bearer ' + TOKEN() } }).catch(()=>null);
-    if (!res || !res.ok){ myEmpty.style.display='block'; myList.innerHTML=''; return; }
-    const arr = await res.json(); renderListInto(arr, myList, myEmpty, searchMine.value.trim(), true);
+    if (!res || !res.ok){ els.myEmpty.style.display='block'; els.myList.innerHTML=''; return; }
+    const arr = await res.json();
+    renderListInto(arr, els.myList, els.myEmpty, els.searchMine.value.trim(), true);
   }
-  btnReloadMine.addEventListener('click', loadMine);
-  searchMine.addEventListener('input', loadMine);
+  document.getElementById('btnReloadMine').addEventListener('click', loadMine);
+  document.getElementById('searchMine').addEventListener('input', loadMine);
 
   async function loadRecent(){
     const res = await fetch(BASE_URL + '/dreams?limit=100').catch(()=>null);
-    if (!res || !res.ok){ allEmpty.style.display='block'; allList.innerHTML=''; return; }
-    const arr = await res.json(); renderListInto(arr, allList, allEmpty, searchAll.value.trim());
+    if (!res || !res.ok){ els.allEmpty.style.display='block'; els.allList.innerHTML=''; return; }
+    const arr = await res.json();
+    renderListInto(arr, els.allList, els.allEmpty, els.searchAll.value.trim());
   }
-  btnReloadAll.addEventListener('click', loadRecent);
-  searchAll.addEventListener('input', loadRecent);
+  document.getElementById('btnReloadAll').addEventListener('click', loadRecent);
+  document.getElementById('searchAll').addEventListener('input', loadRecent);
 
-  btnSearch.addEventListener('click', async ()=>{
-    const q = (title.value + ' ' + text.value + ' ' + tags.value).trim();
-    if (!q){ alert(i18n('alerts_needText')); return; }
-    similarList.innerHTML=''; similarEmpty.style.display='none';
+  document.getElementById('btnSearch').addEventListener('click', async ()=>{
+    const i = t(els.lang.value);
+    const q = (els.title.value + ' ' + els.text.value + ' ' + els.tags.value).trim();
+    if (!q){ alert(i.alerts.needText); return; }
+    els.similarList.innerHTML=''; els.similarEmpty.style.display='none';
     const res = await fetch(BASE_URL + '/dreams/search?q=' + encodeURIComponent(q), { headers: TOKEN() ? { 'Authorization':'Bearer ' + TOKEN() } : {} }).catch(()=>null);
-    if (!res || !res.ok){ similarEmpty.style.display='block'; return; }
+    if (!res || !res.ok){ els.similarEmpty.style.display='block'; return; }
     const items = await res.json();
     renderSimilar(items.map(it=>({ ref: it.ref, score: it.score })));
   });
 
   function renderSimilar(items){
-    similarList.innerHTML='';
-    if (!items.length || (items[0].score||0)===0){ similarEmpty.style.display='block'; return; }
+    els.similarList.innerHTML='';
+    const i = t(els.lang.value);
+    if (!items.length || (items[0].score||0)===0){ els.similarEmpty.style.display='block'; return; }
     items.forEach(({ref, score})=>{
       const div = document.createElement('div'); div.className='item';
       const pct = (score*100).toFixed(1);
-      const vis = ref.visibility ? `<span class="pill">${ref.visibility==='private'? i18n('visBadgePrivate') : i18n('visBadgePublic')}</span>`:'';
+      const vis = ref.visibility ? `<span class="pill">${ref.visibility==='private'? i.visBadgePrivate : i.visBadgePublic}</span>`:'';
       div.innerHTML = `
-        <h3>${esc(ref.title)||i18n('untitled')}</h3>
+        <h3>${esc(ref.title)||i.untitled}</h3>
         <div class="muted">${esc(ref.date||'—')} · ${(ref.mood||'')} ${vis}</div>
         <div class="muted" style="margin-top:6px">${esc(String(ref.text||'')).slice(0,220)}${(ref.text||'').length>220?'…':''}</div>
-        <div style="margin-top:8px">${i18n('similarity')}: <b>${pct}%</b></div>
+        <div style="margin-top:8px">${i.similarity}: <b>${pct}%</b></div>
       `;
-      similarList.appendChild(div);
+      els.similarList.appendChild(div);
     });
   }
 
-  // Init data
+  // ====== Init
+  function initLangUI(){
+    buildLangSelect();
+    els.lang.value = pickLang();
+    applyLang(els.lang.value);
+    els.lang.addEventListener('change', ()=>{
+      localStorage.setItem(LANG_KEY, els.lang.value);
+      applyLang(els.lang.value);
+    });
+  }
+
+  initLangUI();
   loadMe(); loadMine(); loadRecent();
 </script>
 </body>
