@@ -1,13 +1,16 @@
+// server.js
 import express from 'express';
 import cors from 'cors';
 import Database from 'better-sqlite3';
 import bcrypt from 'bcryptjs';
 import crypto from 'node:crypto';
+import fs from 'node:fs';
+import path from 'node:path';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// ---- Tiny rate-limit (هر دقیقه 120 درخواست به‌صورت پیش‌فرض)
+// ---- Rate limit ساده
 const RATE = { windowMs: 60_000, limit: Number(process.env.RATE_LIMIT || 120) };
 const hits = new Map();
 setInterval(() => {
@@ -46,8 +49,12 @@ app.use(cors({
 app.options('*', cors());
 app.use(express.json({ limit: process.env.JSON_LIMIT || '2mb' }));
 
-// ---- SQLite
-const db = new Database('dreammatch.db');
+// ---- مسیر پایدار دیتابیس روی Volume
+const DATA_DIR = process.env.DATA_DIR || '/data';
+try { fs.mkdirSync(DATA_DIR, { recursive: true }); } catch {}
+const dbPath = path.join(DATA_DIR, 'dreammatch.db');
+
+const db = new Database(dbPath);
 db.pragma('journal_mode = WAL');
 db.exec(`
 CREATE TABLE IF NOT EXISTS users (
@@ -74,11 +81,6 @@ CREATE TABLE IF NOT EXISTS dreams (
   tags TEXT DEFAULT '',
   visibility TEXT DEFAULT 'public',
   embedding TEXT DEFAULT NULL,
-  created_at INTEGER DEFAULT (strftime('%s','now'))
-);
-CREATE TABLE IF NOT EXISTS reset_codes (
-  email TEXT NOT NULL,
-  code TEXT NOT NULL,
   created_at INTEGER DEFAULT (strftime('%s','now'))
 );
 `);
@@ -113,7 +115,7 @@ function auth(req,res,next){
 }
 
 // ---- Health
-app.get('/health', (req,res)=> res.json({ ok:true, version:'4.1.1', time: Date.now(), cors: ORIGINS }) );
+app.get('/health', (req,res)=> res.json({ ok:true, version:'4.1.1', time: Date.now(), db: dbPath, cors: ORIGINS }) );
 
 // ---- Auth
 app.post('/auth/signup', (req,res)=>{
@@ -147,46 +149,6 @@ app.post('/auth/logout', auth, (req,res)=>{
   const token = (req.headers.authorization || '').slice(7);
   db.prepare('DELETE FROM sessions WHERE token=?').run(token);
   res.json({ ok:true });
-});
-
-// ---- Password reset
-app.post('/auth/request-reset', (req, res) => {
-  let { email } = req.body || {};
-  email = (email || '').trim().toLowerCase();
-  if (!email) return res.status(400).json({ error: 'email required' });
-
-  const u = db.prepare('SELECT id FROM users WHERE email=?').get(email);
-  if (!u) return res.status(404).json({ error: 'no user with this email' });
-
-  const code = String(Math.floor(100000 + Math.random() * 900000));
-  db.prepare('DELETE FROM reset_codes WHERE email=?').run(email);
-  db.prepare('INSERT INTO reset_codes (email, code) VALUES (?,?)').run(email, code);
-
-  // در محیط واقعی باید ایمیل شود؛ اینجا برای تست برمی‌گردانیم
-  res.json({ ok: true, code });
-});
-
-app.post('/auth/confirm-reset', (req, res) => {
-  let { email, code, new_password } = req.body || {};
-  email = (email || '').trim().toLowerCase();
-  code = (code || '').trim();
-
-  if (!email || !code || !new_password)
-    return res.status(400).json({ error: 'email, code, new_password required' });
-
-  const row = db.prepare('SELECT * FROM reset_codes WHERE email=? AND code=?').get(email, code);
-  if (!row) return res.status(400).json({ error: 'invalid code' });
-
-  if ((Date.now()/1000 - row.created_at) > 15 * 60) {
-    db.prepare('DELETE FROM reset_codes WHERE email=?').run(email);
-    return res.status(400).json({ error: 'code expired' });
-  }
-
-  const passhash = bcrypt.hashSync(String(new_password), 10);
-  db.prepare('UPDATE users SET passhash=? WHERE email=?').run(passhash, email);
-  db.prepare('DELETE FROM reset_codes WHERE email=?').run(email);
-
-  res.json({ ok: true });
 });
 
 // ---- Me
@@ -237,7 +199,7 @@ app.delete('/dreams/:id', auth, (req,res)=>{
   res.json({ ok:true });
 });
 
-// ---- Search (TF/cosine)
+// ---- Search
 app.get('/dreams/search', (req,res)=>{
   const q = String(req.query.q||'').trim();
   if (!q) return res.status(400).json({ error:'q required' });
